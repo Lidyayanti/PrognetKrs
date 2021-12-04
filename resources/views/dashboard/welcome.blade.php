@@ -388,11 +388,28 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="footer-widget fl-wrap">
-                            <h3>About Us</h3>
+                            <h3>About Kelompok 1</h3>
                             <div class="footer-contacts-widget fl-wrap">
-                                <p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus.
-                                    Nulla eu mi magna. Etiam suscipit commodo gravida. Lorem ipsum dolor sit amet,
-                                    consectetuer adipiscing elit, sed diam. </p>
+                                <ul>
+                                    <li>
+                                        <p>Anggota Kelompok 1</p>
+                                    </li>
+                                    <li>
+                                        <p>Lidya Yanti (1905551012) (Kelas C)</p>
+                                    </li>
+                                    <li>
+                                        <p>Fatliana Kamsia (1905551001) (Kelas A)</p>
+                                    </li>
+                                    <li>
+                                        <p>Naufal Fabian Hakim (1905551032) (Kelas C)</p>
+                                    </li>
+                                    <li>
+                                        <p>Marceline Lionita Chandra (1905551147) (Kelas C)</p>
+                                    </li>
+                                    <li>
+                                        <p>Angga Destia Faturrahman (1905551100) (Kelas A)</p>
+                                    </li>
+                                </ul>
                                 <ul class="footer-contacts fl-wrap">
                                     <li><span><i class="fa fa-envelope-o"></i> Mail :</span><a href="#"
                                             target="_blank">kelompok1@gmail.com</a></li>
