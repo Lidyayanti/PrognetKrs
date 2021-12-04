@@ -3,7 +3,7 @@
     <head>
         <!--=============== basic  ===============-->
         <meta charset="UTF-8">
-        <title>{{ env('app_name') }}</title>
+        <title>{{ env('APP_NAME') }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="robots" content="index, follow"/>
         <meta name="keywords" content=""/>
@@ -107,7 +107,7 @@
                         <div class="hero-section-wrap fl-wrap">
                             <div class="container">
                                 <div class="intro-item fl-wrap">
-                                    <h2>{{ env('app_name') }}</h2>
+                                    <h2>{{ env('APP_NAME') }}</h2>
                                     <h3>Sistem KRS Mahasiswa Universitas Udayana.</h3>
                                 </div>
                             </div>
@@ -563,9 +563,11 @@
                             <div class="tab">
                                 <div id="tab-1" class="tab-content">
                                     <div class="custom-form">
-                                        <form method="post"  name="registerform">
+                                        <form method="post" name="registerform" action="{{ Route('user.login') }}">
+                                            @csrf
+                                            @method('POST')
                                             <label>Username or Email Address * </label>
-                                            <input name="email" type="text"   onClick="this.select()" value="">
+                                            <input name="email" type="text" onClick="this.select()" value="">
                                             <label >Password * </label>
                                             <input name="password" type="password"   onClick="this.select()" value="" >
                                             <button type="submit"  class="log-submit-btn"><span>Log In</span></button>
@@ -586,12 +588,27 @@
                                             <form method="post"   name="registerform" class="main-register-form" id="main-register-form2">
                                                 <label >Name * </label>
                                                 <input name="name" type="text"   onClick="this.select()" value="">
-                                                <label>Second Name *</label>
+                                                <label>Alamat *</label>
                                                 <input name="name2" type="text"  onClick="this.select()" value="">
-                                                <label>Email Address *</label>
-                                                <input name="email" type="text"  onClick="this.select()" value="">
+                                                <label>Telepon *</label>
+                                                <input name="email" type="number"  onClick="this.select()" value="">
+                                                <label >Email *</label>
+                                                <input name="email" type="email"   onClick="this.select()" value="" >
                                                 <label >Password *</label>
                                                 <input name="password" type="password"   onClick="this.select()" value="" >
+                                                <label >Program Studi *</label>
+                                                <select name="program_studi" id="">
+                                                    <option value="">TEKNOLOGI INFORMASI</option>
+                                                    <option value="">MESIN</option>
+                                                    <option value="">TEKNIK SIPIL</option>
+                                                </select>
+                                                <label >Angkatan *</label>
+                                                <select name="angakatan" id="">
+                                                    <option value="">2021</option>
+                                                    <option value="">2020</option>
+                                                    <option value="">2019</option>
+                                                </select>
+                                                <input type="file" name="foto_mahasiswa">
                                                 <button type="submit"     class="log-submit-btn"  ><span>Register</span></button>
                                             </form>
                                         </div>
@@ -607,9 +624,20 @@
         </div>
         <!-- Main end -->
         <!--=============== scripts  ===============-->
+           <!-- limonte-sweetalert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.2.1/dist/sweetalert2.all.min.js"></script>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/plugins.js"></script>
         <script type="text/javascript" src="js/scripts.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwJSRi0zFjDemECmFl9JtRj1FY7TiTRRo&libraries=places&callback=initAutocomplete"></script>
+        <script type="text/javascript">
+            @if(Session::has('status'))
+                Swal.fire({
+                    icon: @if (Session::has('icon'))'{{ Session::get('icon') }}' @else 'error' @endif,
+                    title: @if (Session::has('title'))'{{ Session::get('title') }}' @else 'title' @endif,
+                    text: @if (Session::has('message'))'{{ Session::get('message') }}' @else 'message' @endif,
+                })
+            @endif
+        </script>
     </body>
 </html>

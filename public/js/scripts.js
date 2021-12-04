@@ -234,7 +234,7 @@ function initCitybook() {
     //   Bubbles ------------------
     $('<div class="bubbles"></div>').appendTo(".bubble-bg");
     var bArray = [];
-    var sArray = [5, 10, 15, 20];
+    var sArray = [50, 10, 15, 20];
     for (var i = 0; i < $('.bubbles').width(); i++) {
         bArray.push(i);
     }
