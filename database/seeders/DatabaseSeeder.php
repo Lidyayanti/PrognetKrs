@@ -30,7 +30,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 1,
                 'sks' => 2,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-KBD-1',
@@ -38,7 +40,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 1,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-PMROG-1',
@@ -46,7 +50,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 1,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-TBD-2',
@@ -54,7 +60,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 2,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-JARKOM-2',
@@ -62,7 +70,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 2,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-PBO-2',
@@ -70,7 +80,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 2,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-PROGNET-3',
@@ -78,7 +90,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 3,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-RPL-3',
@@ -86,7 +100,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 3,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-IMK-3',
@@ -94,7 +110,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 3,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-KT-4',
@@ -102,7 +120,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 4,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-PROGMOB-4',
@@ -110,7 +130,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 4,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-IOT-4',
@@ -118,7 +140,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 4,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-ITFOR-5',
@@ -126,7 +150,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 5,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-AKB-5',
@@ -134,7 +160,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 5,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-ERP-5',
@@ -142,7 +170,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 5,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-IMP-6',
@@ -150,7 +180,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 6,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-IMP-6',
@@ -158,7 +190,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 6,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-IM-6',
@@ -166,7 +200,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 6,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-PT-6',
@@ -174,7 +210,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 6,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-PRMB-7',
@@ -182,7 +220,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 7,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-SMB-7',
@@ -190,7 +230,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 7,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-P1-7',
@@ -198,7 +240,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 7,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-KKN-8',
@@ -206,7 +250,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 8,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-PI-8',
@@ -214,7 +260,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 8,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
             [
                 'kode' => 'TI-TK-8',
@@ -222,7 +270,9 @@ class DatabaseSeeder extends Seeder
                 'semester' => 8,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
-                'status_mk' => 'wajib'
+                'status_mk' => 'wajib',
+                'created_at' => date('y-m-d'),
+                'updated_at' => date('y-m-d')
             ],
         ]);
 
