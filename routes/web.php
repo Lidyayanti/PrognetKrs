@@ -32,4 +32,7 @@ Route::prefix('mahasiswa')->group(function(){
     Route::prefix('krs')->group(function(){
         Route::get('input',[TransaksiKrsController::class,'index'])->name('mahasiswa.krs.input');
     });
+
+    Route::get('profile',[MahasiswaController::class,'index'])->name('mahasiswa.index');
+    Route::get('edit',[MahasiswaController::class,'edit'])->name('mahasiswa.edit');
 });
