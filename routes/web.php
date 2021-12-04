@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\TransaksiKrsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,4 +28,8 @@ Route::prefix('user')->group(function(){
 
 Route::prefix('mahasiswa')->group(function(){
     Route::get('dashboard',[MahasiswaController::class,'index'])->name('mahasiswa.index');
+
+    Route::prefix('krs')->group(function(){
+        Route::get('input',[TransaksiKrsController::class,'index'])->name('mahasiswa.krs.input');
+    });
 });

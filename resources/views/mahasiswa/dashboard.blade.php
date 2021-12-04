@@ -3,5 +3,5 @@
 @section('dashboard-active','active')
 @section('title','Dashboard')
 @section('content')
-//hello
+//DASHBOARD
 @endsection

@@ -14,7 +14,7 @@ class TransaksiKrsController extends Controller
      */
     public function index()
     {
-        //
+        return view('mahasiswa.transaksi-krs');
     }
 
     /**

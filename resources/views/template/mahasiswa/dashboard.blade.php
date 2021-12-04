@@ -25,6 +25,11 @@
   <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/summernote/summernote-bs4.min.css') }}">
+  <!-- DATATABLE -->
+  <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+  @stack('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -228,13 +233,28 @@
                 </p>
               </a>
           </li>
-          <li class="nav-item">
-              <a href="pages/widgets.html" class="nav-link @yield('krs-active')">
+          <li class="nav-item menu-close">
+            <a class="nav-link @yield('krs-active')">
               <i class="fas fa-book"></i>
-                <p>
-                  KRS
-                </p>
-              </a>
+              <p>
+                KRS
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('mahasiswa.krs.input') }}" class="nav-link @yield('krs-input-active')">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Input KRS</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index2.html" class="nav-link @yield('krs-lihat-active')">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lihat KRS</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
               <a href="pages/widgets.html" class="nav-link @yield('matakuliah-active')">
@@ -324,11 +344,25 @@
 <script src="{{ asset('vendor/adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <!-- overlayScrollbars -->
 <script src="{{ asset('vendor/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+<!-- DATATABLE -->
+<script src="{{ asset('vendor/adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/pdfmake/vfs_fonts.sj') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('vendor/adminlte/dist/js/adminlte.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('vendor/adminlte/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('vendor/adminlte/dist/js/pages/dashboard.js') }}"></script>
+@stack('js')
 </body>
 </html>
