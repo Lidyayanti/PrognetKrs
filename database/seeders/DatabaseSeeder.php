@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
+        Matakuliah::truncate();
+        Mahasiswa::truncate();
         Matakuliah::insert([
             [
                 'kode' => 'TI-ALG-1',
