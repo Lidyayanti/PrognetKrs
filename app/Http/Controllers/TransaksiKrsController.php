@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Matakuliah;
 use App\Models\TransaksiKrs;
+use ErrorException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use PDOException;
 
 class TransaksiKrsController extends Controller
 {
@@ -14,7 +20,28 @@ class TransaksiKrsController extends Controller
      */
     public function index()
     {
-        return view('mahasiswa.transaksi-krs');
+        // MAIN LOGIC
+            try{
+
+                $user = Auth::user();
+
+                $matakuliahs = Matakuliah::where('semester',$user->semester)
+                                                ->where('prodi',$user->program_studi)
+                                                ->get();
+
+            }catch(ModelNotFoundException | ErrorException | PDOException | QueryException $err){
+                return redirect()->back()->with([
+                    'status' => 'failed',
+                    'icon' => 'failed',
+                    'title' => 'Server Error',
+                    'message' => 'Server mengalami error !',
+                ]);
+            }
+        // END
+
+        // RETURN
+            return view('mahasiswa.transaksi-krs',compact('matakuliahs'));
+        // END
     }
 
     /**

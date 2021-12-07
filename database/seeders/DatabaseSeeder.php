@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +25,7 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
         Matakuliah::truncate();
         Mahasiswa::truncate();
         Matakuliah::insert([
@@ -282,14 +285,17 @@ class DatabaseSeeder extends Seeder
             [
                 'nim' => 1805551029,
                 'nama' => 'Lidya Yanti',
+                'semester' => 5,
                 'alamat' => 'Jln.Banteng no.16',
                 'telepon' => '081246082357',
                 'email' => 'lidyayanti2511@gmail.com',
-                'password' => Hash::make('alinlidya21'),
+                'password' => Hash::make('lidyayanti'),
                 'program_studi' => DatabaseSeeder::$prodi[0],
                 'angkatan' => 2019,
                 'foto_mahasiswa' => 'default.jpg',
             ]
         ]);
+
+        Schema::enableForeignKeyConstraints();
     }
 }

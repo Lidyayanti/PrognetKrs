@@ -13,6 +13,7 @@ class Mahasiswa extends Authenticatable
         'nim',
         'nama',
         'alamat',
+        'semester',
         'telepon',
         'email',
         'password',
@@ -20,4 +21,8 @@ class Mahasiswa extends Authenticatable
         'angkatan',
         'foto_mahasiswa'
     ];
+
+    public function TransaksiKrs(){
+        return $this->hasMany(TransaksiKrs::class,'mahasiswa_id','id');
+    }
 }

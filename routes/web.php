@@ -27,12 +27,14 @@ Route::prefix('user')->group(function(){
 });
 
 Route::prefix('mahasiswa')->group(function(){
-    Route::get('dashboard',[MahasiswaController::class,'index'])->name('mahasiswa.index');
+
+    Route::get('dashboard',[MahasiswaController::class,'dashboard'])->name('mahasiswa.dashboard');
+
+    Route::get('profile',[MahasiswaController::class,'index'])->name('mahasiswa.profile');
 
     Route::prefix('krs')->group(function(){
         Route::get('input',[TransaksiKrsController::class,'index'])->name('mahasiswa.krs.input');
     });
 
-    Route::get('profile',[MahasiswaController::class,'index'])->name('mahasiswa.index');
     Route::get('edit',[MahasiswaController::class,'edit'])->name('mahasiswa.edit');
 });

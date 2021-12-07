@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PDOException;
 
@@ -22,6 +23,11 @@ class MahasiswaController extends Controller
         $mahasiswa = Auth::user();
 
         return view('mahasiswa.profile',compact('mahasiswa'));
+    }
+
+    public function dashboard()
+    {
+        return view('mahasiswa.dashboard');
     }
 
     /**

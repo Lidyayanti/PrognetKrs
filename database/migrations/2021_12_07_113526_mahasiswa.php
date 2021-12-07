@@ -17,6 +17,7 @@ class Mahasiswa extends Migration
             $table->id();
             $table->string("nim",12);
             $table->string('nama',100);
+            $table->integer('semester')->length(11);
             $table->string("alamat",255);
             $table->string("telepon",30);
             $table->string("email",200);

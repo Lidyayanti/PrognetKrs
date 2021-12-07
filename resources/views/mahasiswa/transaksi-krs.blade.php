@@ -13,16 +13,7 @@
     <div class="row">
         <div class="col-12 card">
             <h5 class="bg-primary mx-n2 mt-n2 p-2">PILIHAN MATAKULIAH</h5>
-            <table id="tablekrs" class="display m-3" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Nama Matakuliah</th>
-                        <th>Kode</th>
-                        <th>Semester</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            </table>
+            <table id="tablekrs" class="display m-3" style="width:100%"></table>
         </div>
         
         <div class="card col-12">
@@ -53,8 +44,20 @@
 @push('js')
 <script>
     $(document).ready(function() {
-        $('#tablekrs').DataTable( {
+        
 
+        $(document).ready(function() {
+            $('#tablekrs').DataTable( {
+                data: {!! $matakuliahs !!},
+                columns: [
+                    { title: "Name Matakuliah", data : "nama_matakuliah"},
+                    { title: "Kode", data: "kode" },
+                    { title: "Semester", data: "semester" },
+                    { title: "Action", data : "id" , render : function (data, type, row, meta) {
+                        return '<button class="btn-sm btn-success">TAMBAH</button>';
+                    }}
+                ]
+            } );
         } );
 
         $('#tableselect').DataTable( {

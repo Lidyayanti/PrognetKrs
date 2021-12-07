@@ -9,6 +9,8 @@ class TransaksiKrs extends Model
 {
     use HasFactory;
 
+    protected $table = "trx_krss";
+
     protected $fillaable = [
         'id',
         'tahun_ajaran',

@@ -19,7 +19,7 @@ class Matakuliah extends Migration
             $table->string('nama_matakuliah',100);
             $table->integer("semester")->length(11);
             $table->integer("sks")->length(1);
-            $table->enum("program_studi",['Teknologi Informasi','Teknik Mesin','Teknik Sipil','Teknik Arsitektur']);
+            $table->enum("prodi",['Teknologi Informasi','Teknik Mesin','Teknik Sipil','Teknik Arsitektur']);
             $table->enum("status_mk",['Wajib','Pilihan']);
             $table->timestamps();
         });

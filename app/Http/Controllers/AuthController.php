@@ -16,7 +16,6 @@ use PDOException;
 class AuthController extends Controller
 {
     public function login(Request $request){
-
         // SECURITY
             $validator = Validator::make($request->all(),[
                 'email' => 'required',
@@ -36,8 +35,7 @@ class AuthController extends Controller
         // MAIN
             try{
                 if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                    return $request->all();
-                    return "SUKSES LOGIN";
+                    return redirect()->route('mahasiswa.index');
                 }else{
                     return redirect()->back()->with([
                         'status' => 'fail',
