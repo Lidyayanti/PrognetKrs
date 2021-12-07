@@ -35,7 +35,7 @@ class AuthController extends Controller
         // MAIN
             try{
                 if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                    return redirect()->route('mahasiswa.index');
+                    return redirect()->route('mahasiswa.profile');
                 }else{
                     return redirect()->back()->with([
                         'status' => 'fail',
