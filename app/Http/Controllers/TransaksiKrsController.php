@@ -149,11 +149,11 @@ class TransaksiKrsController extends Controller
             $user = Auth::user();
             
             $krss = TransaksiKrs::with(['Mahasiswa','Matakuliah'])->where('mahasiswa_id',$user->id)->where('semester',$semester)->get();
-
+            $semester = $user->semester;
         // END
 
         // RETURN
-            return view('mahasiswa.show-krs',compact(['user','krss']));
+            return view('mahasiswa.show-krs',compact(['user','krss','semester']));
         // END
     }
 

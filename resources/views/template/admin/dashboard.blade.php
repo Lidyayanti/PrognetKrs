@@ -221,38 +221,6 @@
                 </p>
               </a>
           </li>
-          <li class="nav-item">
-              <a href="{{ Route('mahasiswa.profile') }}" class="nav-link @yield('profile-active')">
-                <i class="fas fa-user"></i>
-                <p>
-                  Profile
-                  <span class="right badge badge-danger">1</span>
-                </p>
-              </a>
-          </li>
-          <li class="nav-item menu-close">
-            <a class="nav-link @yield('krs-active')">
-              <i class="fas fa-book"></i>
-              <p>
-                KRS
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('mahasiswa.krs.input') }}" class="nav-link @yield('krs-input-active')">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Input KRS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link @yield('krs-lihat-active')">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lihat KRS</p>
-                </a>
-              </li>
-            </ul>
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

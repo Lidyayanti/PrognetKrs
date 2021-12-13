@@ -43,7 +43,13 @@
             </form>
         </div>
         <div class="col-12 p-1 text-center">
-            <button type="submit" onclick="submitWarning()" class="btn-md px-5 btn-danger">TOLAK</butt>
+            <button type="button" onclick="submitWarning()" class="btn-md px-5 btn-danger">TOLAK</butt>
+            <form action="{{ Route('admin.dashboard.mahasiswa.tolak') }}" method="post" id="form_delete">
+                @csrf
+                @method('post')
+                <input type="hidden" value="{{ $mahasiswa->id }}" name="mahasiswa_id">
+                <input type="hidden" value="{{ $semester }}" name="semester">
+            </form>
             <button type="submit" form="form_perbarui_data" class="btn-md px-5 btn-primary">PERBARUI NILAI</butt>
         </div>
     </div>
@@ -63,13 +69,13 @@
                 { title: "Nilai Saat Ini", data: "nilai" },
                 { title: "Action", data : "id" , render : function (data, type, row, meta) {
                     return '<select name="nilai['+data+']" class="form-control" id="exampleFormControlSelect1">'+
-                                '<option value="1"></option>'+
-                                '<option value="1">A</option>'+
-                                '<option value="2">B</option>'+
-                                '<option value="3">C</option>'+
-                                '<option value="4">D</option>'+
-                                '<option value="5">E</option>'+
-                                '<option value="6">TUNDA</option>'+
+                                '<option value=""></option>'+
+                                '<option value="A">A</option>'+
+                                '<option value="B">B</option>'+
+                                '<option value="C">C</option>'+
+                                '<option value="D">D</option>'+
+                                '<option value="E">E</option>'+
+                                '<option value="Tunda">TUNDA</option>'+
                             '</select>';
                 }},
             ]
@@ -95,7 +101,7 @@
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                document.getElementById("form_submit").submit();
+                document.getElementById("form_delete").submit();
             } else if (result.isDenied) {
                 Swal.fire('Check SKS anda kembali', '', 'info');
             }

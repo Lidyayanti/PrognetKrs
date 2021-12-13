@@ -50,5 +50,7 @@ Route::prefix('admin')->group(function(){
         Route::get('mahasiswa',[AdminController::class,'showMahasiswas'])->name('admin.dashboard.mahasiswa');
         Route::get('mahasiswa/detail/{id?}',[AdminController::class,'showMahasiswaDetail'])->name('admin.dashboard.mahasiswa.detail');
         Route::post('mahasiswa/perbarui',[AdminController::class,'perbaruiMahasiswa'])->name('admin.dashboard.mahasiswa.perbarui');
+        
+        Route::post('mahasiswa/tolak',[AdminController::class,'tolakMahasiswa'])->name('admin.dashboard.mahasiswa.tolak');
     });
 });

@@ -214,14 +214,6 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-              <a href="{{ Route('mahasiswa.dashboard') }}" class="nav-link @yield('dashboard-active')">
-                <i class="fas fa-tachometer-alt"></i>
-                <p>
-                  Dashboard
-                </p>
-              </a>
-          </li>
-          <li class="nav-item">
               <a href="{{ Route('mahasiswa.profile') }}" class="nav-link @yield('profile-active')">
                 <i class="fas fa-user"></i>
                 <p>
@@ -246,7 +238,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('mahasiswa.krs.show',[$user->semester]) }}" class="nav-link @yield('krs-lihat-active')">
+                <a href="{{ route('mahasiswa.krs.show',[Auth::user()->semester]) }}" class="nav-link @yield('krs-lihat-active')">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lihat KRS</p>
                 </a>

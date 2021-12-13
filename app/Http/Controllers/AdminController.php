@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\TransaksiKrs;
 use ErrorException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -94,7 +95,12 @@ class AdminController extends Controller
 
         // MAIN LOGIC
             try{
-                dd($request->nilai);
+                
+                foreach($request->nilai as $index => $nilai){
+                    if($nilai != null){
+                        TransaksiKrs::findOrFail($index)->update(['nilai' => $nilai]);
+                    }
+                }
             }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err){
                 return redirect()->back()->with([
                     'status' => 'fail',
@@ -106,7 +112,45 @@ class AdminController extends Controller
         // END
 
         // RETURN
+            return redirect()->route('admin.dashboard.mahasiswa.detail',[$request->id])->with([
+                'status' => 'success',
+                'icon' => 'success',
+                'title' => 'Berhasil',
+                'message' => 'Berhasil memperbaharui nilai siswa',
+            ]);
+        // END
+    }
 
+    public function tolakMahasiswa(Request $request){
+        // SECURITY
+
+        // END
+
+        // MAIN LOGIC
+            try{
+
+                $TransaksiKrs = TransaksiKrs::where('mahasiswa_id',$request->mahasiswa_id)->where('semester',$request->semester)->get();
+
+                TransaksiKrs::destroy($TransaksiKrs->pluck('id'));
+
+            }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err){
+                dd($err);
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Fail !',
+                    'message' => 'Internal Server Error',
+                ]);
+            }
+        // END
+
+        // RETURN
+            return redirect()->back()->with([
+                'status' => 'success',
+                'icon' => 'success',
+                'title' => 'Berhasil Menghapus KRS',
+                'message' => 'Berhasil menghapus KRS',
+            ]);
         // END
     }
 }

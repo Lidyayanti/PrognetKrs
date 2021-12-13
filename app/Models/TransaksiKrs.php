@@ -11,7 +11,7 @@ class TransaksiKrs extends Model
 
     protected $table = "trx_krss";
 
-    protected $fillaable = [
+    protected $fillable = [
         'id',
         'tahun_ajaran',
         'semester',
