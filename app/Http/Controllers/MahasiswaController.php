@@ -235,7 +235,7 @@ class MahasiswaController extends Controller
                 $mahasiswa->update(['foto_mahasiswa' => $nama_file]);
             }
 
-            $animal->update([
+            $mahasiswa->update([
                 'nim' => $request->nim,
                 'nama' => $request->nama,
                 'alamat' => $alamat,
