@@ -13,29 +13,48 @@
     <div class="row">
         <div class="col-12 card">
             <h5 class="bg-primary mx-n2 mt-n2 p-2">PILIHAN MATAKULIAH</h5>
-            <table id="tablekrs" class="display m-3" style="width:100%"></table>
-        </div>
-        
-        <div class="card col-12">
-            <h5 class="bg-secondary mx-n2 mt-n2 p-2">PILIHAN ANDA</h5>
-            <table id="tableselect" class="display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Nama Matakuliah</th>
-                        <th>Kode</th>
-                        <th>Semester</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+            <form action="{{ Route('mahasiswa.krs.store') }}" id="form_submit" method="POST">
+                <div class="row">
+                    <div class="col-lg-4 col-12">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">TAHUN AJARAN</label>
+                            <select name="tahun_ajaran" class="form-control" id="exampleFormControlSelect1">
+                                <option>2015</option>
+                                <option>2016</option>
+                                <option>2017</option>
+                                <option>2018</option>
+                                <option>2019</option>
+                                <option>2020</option>
+                                <option selected>2021</option>
+                                <option>2022</option>
+                                <option>2023</option>
+                                <option>2024</option>
+                                <option>2025</option>
+                            </select>
+                        </div>
+                    </div>
 
-        <div class="col-lg-6 col-12 p-1">
-            <button class="btn-block btn-secondary">BACK</button>
-        </div>
+                    <div class="col-lg-4 col-12">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">SEMESTER</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="{{ isset($user->semester) ? $user->semester : 0}}" disabled>
+                        </div>
+                    </div>
 
-        <div class="col-lg-6 col-12 p-1">
-            <button class="btn-block btn-primary">KIRIM</button>
+                    <div class="col-lg-4 col-12">
+                        <div class="form-group">
+                            <label for="maxsks">MAX SKS</label>
+                            <input type="text" class="form-control" id="maxsks" value="0" disabled>
+                        </div>
+                    </div>
+                </div>
+                @csrf
+                @method('POST')
+                <table id="tablekrs" class="stripe display m-3" style="width:100%"></table>
+            </form>
+        </div>
+        <div class="col-12 p-1 text-center">
+            <button type="submit" onclick="submitWarning()" class="btn-md px-5 btn-primary">KIRIM</butt>
         </div>
     </div>
 </div>
@@ -50,19 +69,67 @@
             $('#tablekrs').DataTable( {
                 data: {!! $matakuliahs !!},
                 columns: [
+                    { title: "Action", data : "id" , render : function (data, type, row, meta) {
+                        return '<div class="form-check">'+
+                                '<input name="matakuliahs[]" onclick="handleClick(this,'+row.sks+')" class="form-check-input" type="checkbox" value="'+data+'" id="defaultCheck1">'+
+                                '<label class="form-check-label" for="defaultCheck1">'+
+                                '</label>'+
+                                '</div>';
+                    }},
                     { title: "Name Matakuliah", data : "nama_matakuliah"},
                     { title: "Kode", data: "kode" },
-                    { title: "Semester", data: "semester" },
-                    { title: "Action", data : "id" , render : function (data, type, row, meta) {
-                        return '<button class="btn-sm btn-success">TAMBAH</button>';
-                    }}
+                    { title: "SKS", data: "sks" },
+                    { title: "Semester", data: "semester" }
                 ]
             } );
         } );
-
-        $('#tableselect').DataTable( {
-
-        } );
     } );
+
+    let sks = 0;
+    function handleClick(cb,valueSks) {
+        if(cb.checked){
+            sks += valueSks;
+            if(sks > 24){
+                sks -= valueSks
+                cb.checked = false;
+                Swal.fire({
+                    icon: "warning",
+                    title: "PERINGATAN !",
+                    text: "SKS Tidak dapat lebih dari 24",
+                })
+            }else{
+                document.getElementById('maxsks').value = sks;
+            }
+        }else{
+            sks -= valueSks;
+            document.getElementById('maxsks').value = sks;
+        }
+    }
+
+    function submitWarning(){
+        Swal.fire({
+            title: '<strong>PERINGATAN !</strong>',
+            icon: 'info',
+            html:
+                'Mohon pastikan data yang anda inputkan adalah <b>BENAR</b>, ' +
+                'Admin bersama dosen pembimbing akademik anda akan melakukan pengecekan SKS yang anda inputkan sebelum di approve ',
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:
+                'Kirim!',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText:
+                'Batal',
+            cancelButtonAriaLabel: 'Thumbs down'
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                document.getElementById("form_submit").submit();
+            } else if (result.isDenied) {
+                Swal.fire('Check SKS anda kembali', '', 'info');
+            }
+        })
+    }
 </script>
 @endpush

@@ -35,7 +35,7 @@ class AuthController extends Controller
         // MAIN
             try{
                 if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                    return redirect()->route('mahasiswa.profile');
+                    return redirect()->route('mahasiswa.krs.input');
                 }else{
                     return redirect()->back()->with([
                         'status' => 'fail',
@@ -117,6 +117,55 @@ class AuthController extends Controller
                 'title' => 'Berhasil Register',
                 'message' => 'Anda telah terdaftar sebagai mahasiswa Universitas Udayana'
             ]);
+        // END
+    }
+
+    public function loginAdmin(){
+        return view('admin.welcome-admin');
+    }
+
+    public function postLoginAdmin(Request $request){
+        // VALIDATION
+            $validator = Validator::make($request->all(),[
+                'email' => 'required',
+                'password' => 'required',
+            ]);
+
+            if($validator->fails()){
+                dd("val");
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Gagal Regiister',
+                    'message' => 'Gagal melakukan register ke dalam sistem'
+                ]);
+            }
+        // END
+
+        // MAIN LOGIC
+            try{
+                if(Auth::guard('admin')->attempt(['email' => $request->email,'password' => $request->password])){
+                    return redirect()->route('admin.dashboard.mahasiswa');
+                }else{
+                    return redirect()->back()->with([
+                        'status' => 'fail',
+                        'icon' => 'error',
+                        'title' => 'Gagal Login',
+                        'message' => 'Email atau Password Salah'
+                    ]);
+                }
+            }catch(ModelNotFoundException | PDOException | ErrorException | QueryException | \Throwable | \Exception $err){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Server Error',
+                    'message' => 'Internal Server Error'
+                ]);
+            }
+        // END
+
+        // RETURN
+
         // END
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
 use Illuminate\Database\Seeder;
@@ -293,6 +294,14 @@ class DatabaseSeeder extends Seeder
                 'program_studi' => DatabaseSeeder::$prodi[0],
                 'angkatan' => 2019,
                 'foto_mahasiswa' => 'default.jpg',
+            ]
+        ]);
+
+        Admin::insert([
+            [
+                'nama' => 'Admin 1',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('admin1'),
             ]
         ]);
 

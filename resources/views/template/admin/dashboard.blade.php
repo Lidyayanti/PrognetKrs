@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Prognet KRS</title>
+  <title>Prognet KRS [ADMIN]</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -194,7 +194,7 @@
           <img src="{{ asset('vendor/adminlte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ isset(Auth::user()->nama) ? Auth::user()->nama : "USER" }}</a>
+          <a href="#" class="d-block">{{ isset(Auth::guard('admin')->user()->nama) ? Auth::guard('admin')->user()->nama : "USER" }}</a>
         </div>
       </div>
 
@@ -214,10 +214,10 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-              <a href="{{ Route('mahasiswa.dashboard') }}" class="nav-link @yield('dashboard-active')">
+              <a href="{{ Route('admin.dashboard.mahasiswa') }}" class="nav-link @yield('mahasiswa-active')">
                 <i class="fas fa-tachometer-alt"></i>
                 <p>
-                  Dashboard
+                  Mahasiswa
                 </p>
               </a>
           </li>
@@ -246,7 +246,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('mahasiswa.krs.show',[$user->semester]) }}" class="nav-link @yield('krs-lihat-active')">
+                <a href="" class="nav-link @yield('krs-lihat-active')">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lihat KRS</p>
                 </a>
