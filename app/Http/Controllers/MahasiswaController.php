@@ -201,27 +201,30 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request)
     {
-        // SECURITY
-        $validator = Validator::make($request->all(),[
-            'nim' => 'required|numeric|between:0,999',
-            'nama' => 'required|min:3|max:100',
-            'alamat' => 'required|min:3|max:100',
-            'telepon' => 'required|numeric|between:0,999',
-            'email' => 'required|min:3|max:100',
-            'password' => 'required|min:3|max:8',
-            'angkatan' => 'required|in:16,17,18,19,20,21',
-            'progam_studi' => 'required|in:Teknologi Informasi,Teknik Mesin,Teknik Sipil,Teknik Arsitektur,Teknik Elektro,Teknik Industri',
-            'foto_mahasiswa' => 'required|image|mimes:jpg,jpeg,png,bmp,tiff'
-        ]);
 
-        if($validator->fails()){
-            return redirect()->back()->with([
-                'status' => 'fail',
-                'icon' => 'error',
-                'title' => 'Fail !',
-                'message' => 'Mohon perhatikan data yang anda inputkan !',
-            ])->withErrors($validator->errors())->withInput($request->all());
-        }
+
+
+        // // SECURITY
+        // $validator = Validator::make($request->all(),[
+        //     'nim' => 'required|numeric|between:0,999',
+        //     'nama' => 'required|min:3|max:100',
+        //     'alamat' => 'required|min:3|max:100',
+        //     'telepon' => 'required|numeric|between:0,999',
+        //     'email' => 'required|min:3|max:100',
+        //     'password' => 'required|min:3|max:8',
+        //     'angkatan' => 'required|in:16,17,18,19,20,21',
+        //     'progam_studi' => 'required|in:Teknologi Informasi,Teknik Mesin,Teknik Sipil,Teknik Arsitektur,Teknik Elektro,Teknik Industri',
+        //     'foto_mahasiswa' => 'required|image|mimes:jpg,jpeg,png,bmp,tiff'
+        // ]);
+
+        // if($validator->fails()){
+        //     return redirect()->back()->with([
+        //         'status' => 'fail',
+        //         'icon' => 'error',
+        //         'title' => 'Fail !',
+        //         'message' => 'Mohon perhatikan data yang anda inputkan !',
+        //     ])->withErrors($validator->errors())->withInput($request->all());
+        // }
     // END
 
     // MAIN LOGIC
@@ -230,21 +233,21 @@ class MahasiswaController extends Controller
 
             $mahasiswa = Mahasiswa::findOrFail($request->id);
 
-            if($request->hasFile('foto')){
-                $foto_mahasiswa = basename($request->file('foto_mahasiswa')->store('public/image/foto_mahasiswa'));
-                $mahasiswa->update(['foto_mahasiswa' => $nama_file]);
-            }
+            // if($request->hasFile('foto')){
+            //     $foto_mahasiswa = basename($request->file('foto_mahasiswa')->store('public/image/foto_mahasiswa'));
+            //     $mahasiswa->update(['foto_mahasiswa' => $nama_file]);
+            // }
 
             $mahasiswa->update([
                 'nim' => $request->nim,
                 'nama' => $request->nama,
-                'alamat' => $alamat,
+                'alamat' => $request->alamat,
                 'telepon' => $request->telepon,
                 'email' => $request->email,
-                'password' => $request->password,
-                'angkatan' => $request->angkatan,
-                'program_studi' => $request->program_studi,
-                'foto_mahasiswa' => $request->foto_mahasiswa
+                // 'password' => $request->password,
+                // 'angkatan' => $request->angkatan,
+                'program_studi' => $request->program_studi
+                // 'foto_mahasiswa' => $request->foto_mahasiswa
                 ]);
 
             DB::commit();
@@ -262,7 +265,7 @@ class MahasiswaController extends Controller
     // END
 
     // RETURN
-        return redirect('/')->with([
+        return redirect()->route('mahasiswa.profile')->with([
             'status' => 'success',
             'icon' => 'success',
             'title' => 'Success !',

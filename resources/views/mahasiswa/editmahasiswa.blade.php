@@ -3,7 +3,7 @@
 @section('editmahasiswa-active','active')
 @section('title',' Edit Mahasiswa')
 @section('content')
-    <form action="{{ url('mahasiswa/editmahasiswa') }}" method="POST" class="col-12 card shadow" enctype="multipart/form-data">
+    <form action="{{ route('mahasiswa.update') }}" method="POST" class="col-12 card shadow" enctype="multipart/form-data">
         @csrf
         @method('POST')
         <input type="hidden" value="{{ $mahasiswa->id }}" name="id">
@@ -62,7 +62,7 @@
             @enderror
 
             <div class="col-12 text-center mt-4">
-                <a href="{{ url('/') }}" class="btn btn-danger btn-md mx-2">KEMBALI</a>
+                <a href="{{ url('/mahasiswa/profile') }}" class="btn btn-danger btn-md mx-2">KEMBALI</a>
                 <input type="submit" value="SUBMIT" class="btn btn-primary btn-md mx-2">
             </div>
 
