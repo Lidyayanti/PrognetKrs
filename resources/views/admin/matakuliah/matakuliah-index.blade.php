@@ -53,17 +53,20 @@
 
 @push('js')
 <script>
+    
+    let matakuliahs = {!! $matakuliahs !!};
+
     $(document).ready(function() {
         console.log("ready");
         $('#tableMahasiswa').DataTable( {
-            data: {!! $matakuliahs !!},
+            data: matakuliahs,
             columns: [
                 { title: "Nama Matakuliah", data : "nama_matakuliah"},
                 { title: "Semester", data : "semester"},
                 { title: "SKS", data: "sks" },
                 { title: "Prodi", data: "prodi" },
                 { title: "Action", data : "id" , render : function (data, type, row, meta) {
-                    return '<a href="{{ Route('admin.dashboard.mahasiswa.detail') }}/'+data+'" class="btn-sm btn-primary mr-1">EDIT</a>'+
+                    return '<button onclick="showFormEdit('+meta.row+')" class="btn-sm btn-primary mr-1">EDIT</button>'+
                            '<a href="{{ Route('admin.dashboard.mahasiswa.detail') }}/'+data+'" class="btn-sm btn-danger mr-1">DELETE</a>';
                 }},
             ]
@@ -79,26 +82,25 @@
         window.location.href = "{{ Route('admin.matakuliah.index') }}"+"/"+prodi+"/"+semester;
     }
 
-    Swal.fire({
-        title: 'Multiple inputs',
+    function showFormEdit(records){
+        
+        let matakuliah = matakuliahs[records]
+
+        Swal.fire({
+        title: 'Form Update Matakuliah',
         html:
             '<label class="w-25">NAMA</label>'+
-            '<input id="swal-input1" class="swal2-input">' +
-            '<label class="w-25">Semester</label>'+
-            '<input id="swal-input2" class="swal2-input">'+
+            '<input id="swal-input1" class="swal2-input w-50" value="'+matakuliah.nama_matakuliah+'">' +
+            '<label class="w-25">Semester</label>'+ 
+            '<input id="swal-input2" class="swal2-input w-50" value="'+matakuliah.semester+'">'+
             '<label class="w-25">SKS</label>'+
-            '<input id="swal-input2 w-50" class="swal2-input">'+
+            '<input id="swal-input2" class="swal2-input w-50" value="'+matakuliah.sks+'">'+
             '<label class="w-25">PRODI</label>'+
-            '<select class="swal2-input w-50" id="selectSemester">'+
-                '<option value="all">All</option>'+
-                '<option value="1" @if( $semester == 1 ) selected @endif>1</option>'+
-                '<option value="2" @if( $semester == 2 ) selected @endif>2</option>'+
-                '<option value="3" @if( $semester == 3 ) selected @endif>3</option>'+
-                '<option value="4" @if( $semester == 4 ) selected @endif>4</option>'+
-                '<option value="5" @if( $semester == 5 ) selected @endif>5</option>'+
-                '<option value="6" @if( $semester == 6 ) selected @endif>6</option>'+
-                '<option value="7" @if( $semester == 7 ) selected @endif>7</option>'+
-                '<option value="8" @if( $semester == 8 ) selected @endif>8</option>'+
+            '<select id="swal-input3" class="swal2-input w-50">'+
+                '<option value="Teknologi Informasi">Teknologi Informasi</option>'+
+                '<option value="Teknik Mesin">Teknik Mesin</option>'+
+                '<option value="Teknik Sipil">Teknik Sipil</option>'+
+                '<option value="Teknik Arsitektur">Teknik Arsitektur</option>'+    
             '</select>',
         focusConfirm: false,
         preConfirm: () => {
@@ -108,8 +110,7 @@
             ]
         }
     })
-
-
+    }
 
 </script>
 @endpush
