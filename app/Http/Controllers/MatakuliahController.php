@@ -6,6 +6,8 @@ use App\Models\Matakuliah;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use PDOException;
 
 class MatakuliahController extends Controller
@@ -99,7 +101,36 @@ class MatakuliahController extends Controller
      */
     public function update(Request $request, Matakuliah $matakuliah)
     {
-        //
+        // VALIDATOR
+            $validator = Validator::make($request->all(),[
+                'nama_matakuliah' => 'required',
+                'semester' => 'required|between:1,8',
+                'sks' => 'required|between:1,6',
+                'prodi' => 'required|Teknologi Informasi,'
+            ]);
+        // ENG
+
+        // MAIN LOGIC
+            try{
+                DB::beginTransaction();
+                
+                $matakuliahs = Matakuliah::query();
+            
+                DB::commit();
+            }catch(ModelNotFoundException | QueryException | PDOException | \Throwable | \Exception $err){
+                DB::rollBack();
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Fail !',
+                    'message' => 'Internal Server Error !',
+                ]);
+            }
+        // END
+
+        // RETURN
+
+        // END
     }
 
     /**
