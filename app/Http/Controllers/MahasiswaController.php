@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PDOException;
@@ -212,9 +213,7 @@ class MahasiswaController extends Controller
         //     'telepon' => 'required|numeric|between:0,999',
         //     'email' => 'required|min:3|max:100',
         //     'password' => 'required|min:3|max:8',
-        //     'angkatan' => 'required|in:16,17,18,19,20,21',
         //     'progam_studi' => 'required|in:Teknologi Informasi,Teknik Mesin,Teknik Sipil,Teknik Arsitektur,Teknik Elektro,Teknik Industri',
-        //     'foto_mahasiswa' => 'required|image|mimes:jpg,jpeg,png,bmp,tiff'
         // ]);
 
         // if($validator->fails()){
@@ -233,18 +232,13 @@ class MahasiswaController extends Controller
 
             $mahasiswa = Mahasiswa::findOrFail($request->id);
 
-            // if($request->hasFile('foto')){
-            //     $foto_mahasiswa = basename($request->file('foto_mahasiswa')->store('public/image/foto_mahasiswa'));
-            //     $mahasiswa->update(['foto_mahasiswa' => $nama_file]);
-            // }
-
             $mahasiswa->update([
                 'nim' => $request->nim,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'telepon' => $request->telepon,
                 'email' => $request->email,
-                // 'password' => $request->password,
+                'password' => hash::make($request->password),
                 // 'angkatan' => $request->angkatan,
                 'program_studi' => $request->program_studi
                 // 'foto_mahasiswa' => $request->foto_mahasiswa

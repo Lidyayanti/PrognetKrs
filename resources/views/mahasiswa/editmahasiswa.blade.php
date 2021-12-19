@@ -36,20 +36,26 @@
                 <p class="text-danger"><small>{{ $errors->first('foto') }}</small></p>
             @enderror -->
 
-            <label for="exampleInputEmail1">Email</label>
+            <label for="exampleInputEmail1">EMAIL</label>
             <input type="text" step="any" name="email" class="form-control" placeholder="Input email" value="{{ $mahasiswa->email }}" required>
             @error('email')
                 <p class="text-danger"><small>{{ $errors->first('email') }}</small></p>
             @enderror
 
-            <label for="exampleInputEmail1">Telepon</label>
+            <label for="exampleInputEmail1">PASSWORD</label>
+            <input type="password" step="any" name="password" class="form-control" placeholder="Input password"
+            @error('password')
+                <p class="text-danger"><small>{{ $errors->first('password') }}</small></p>
+            @enderror
+
+            <label for="exampleInputEmail1">TELEPON</label>
             <input type="number" step="any" name="telepon" class="form-control" placeholder="Input Telepon" value="{{ $mahasiswa->telepon }}" required>
             @error('telepon')
                 <p class="text-danger"><small>{{ $errors->first('telepon') }}</small></p>
             @enderror
 
 
-            <label for="exampleInputEmail1">Program Studi</label>
+            <label for="exampleInputEmail1">PROGRAM STUDI</label>
             <select name="program_studi" class="custom-select" required>
                 <option value="">Pilih Prodi</option>
                 <option value="Teknologi Informasi" @if( $mahasiswa->program_studi == 'Teknologi Informasi') selected @endif>Teknologi Informasi</option>
