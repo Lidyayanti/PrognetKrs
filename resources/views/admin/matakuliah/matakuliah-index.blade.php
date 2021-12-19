@@ -82,19 +82,19 @@
         window.location.href = "{{ Route('admin.matakuliah.index') }}"+"/"+prodi+"/"+semester;
     }
 
-    function showFormEdit(records){
+    async function showFormEdit(records){
         
         let matakuliah = matakuliahs[records]
 
-        Swal.fire({
+        const { value: formValues } = await Swal.fire({
         title: 'Form Update Matakuliah',
         width: '800px',
         html:
             '<label class="w-25">NAMA</label>'+
-            '<input id="swal-input1" class="swal2-input w-50" value="'+matakuliah.nama_matakuliah+'">' +
+            '<input id="nama_matakuliah" class="swal2-input w-50" value="'+matakuliah.nama_matakuliah+'">' +
             '<label class="w-25">Semester</label>'+ 
-            '<select id="swal-input3" class="swal2-input w-50">'+
-            '<option value="all">All</option>'+
+            '<select id="semester" class="swal2-input w-50">'+
+                '<option value="all">All</option>'+
                 '<option value="1"'+( matakuliah.semester == 1 ? "selected" : "" )+'>1</option>'+
                 '<option value="3"'+( matakuliah.semester == 2 ? "selected" : "" )+'>3</option>'+
                 '<option value="2"'+( matakuliah.semester == 3 ? "selected" : "" )+'>2</option>'+
@@ -105,9 +105,9 @@
                 '<option value="8"'+( matakuliah.semester == 8 ? "selected" : "" )+'>8</option>'+
             '</select>'+
             '<label class="w-25">SKS</label>'+
-            '<input id="swal-input2" class="swal2-input w-50" value="'+matakuliah.sks+'">'+
+            '<input id="sks" class="swal2-input w-50" value="'+matakuliah.sks+'">'+
             '<label class="w-25">PRODI</label>'+
-            '<select id="swal-input3" class="swal2-input w-50">'+
+            '<select id="prodi" class="swal2-input w-50">'+
                         '<option value="Teknologi Informasi" '+
                             (matakuliah.prodi == "Teknologi Informasi" ? " selected " : "")
                         +' >Teknologi Informasi</option>'+
@@ -124,11 +124,17 @@
         focusConfirm: false,
         preConfirm: () => {
             return [
-            document.getElementById('swal-input1').value,
-            document.getElementById('swal-input2').value
+            "nama_matakuliah" : document.getElementById('nama_matakuliah').value,
+            "semester" : document.getElementById('semester').value,
+            "sks" = document.getElementById('sks').value,
+            "prodi" = document.getElementById('prodi').value,
             ]
         }
-    })
+        });
+    
+        if (formValues) {
+            console.log(formValues);
+        }
     }
 
 </script>
