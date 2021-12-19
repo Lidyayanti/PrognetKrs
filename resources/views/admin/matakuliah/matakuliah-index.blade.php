@@ -88,19 +88,38 @@
 
         Swal.fire({
         title: 'Form Update Matakuliah',
+        width: '800px',
         html:
             '<label class="w-25">NAMA</label>'+
             '<input id="swal-input1" class="swal2-input w-50" value="'+matakuliah.nama_matakuliah+'">' +
             '<label class="w-25">Semester</label>'+ 
-            '<input id="swal-input2" class="swal2-input w-50" value="'+matakuliah.semester+'">'+
+            '<select id="swal-input3" class="swal2-input w-50">'+
+            '<option value="all">All</option>'+
+                '<option value="1"'+( matakuliah.semester == 1 ? "selected" : "" )+'>1</option>'+
+                '<option value="3"'+( matakuliah.semester == 2 ? "selected" : "" )+'>3</option>'+
+                '<option value="2"'+( matakuliah.semester == 3 ? "selected" : "" )+'>2</option>'+
+                '<option value="4"'+( matakuliah.semester == 4 ? "selected" : "" )+'>4</option>'+
+                '<option value="5"'+( matakuliah.semester == 5 ? "selected" : "" )+'>5</option>'+
+                '<option value="6"'+( matakuliah.semester == 6 ? "selected" : "" )+'>6</option>'+
+                '<option value="7"'+( matakuliah.semester == 7 ? "selected" : "" )+'>7</option>'+
+                '<option value="8"'+( matakuliah.semester == 8 ? "selected" : "" )+'>8</option>'+
+            '</select>'+
             '<label class="w-25">SKS</label>'+
             '<input id="swal-input2" class="swal2-input w-50" value="'+matakuliah.sks+'">'+
             '<label class="w-25">PRODI</label>'+
             '<select id="swal-input3" class="swal2-input w-50">'+
-                '<option value="Teknologi Informasi">Teknologi Informasi</option>'+
-                '<option value="Teknik Mesin">Teknik Mesin</option>'+
-                '<option value="Teknik Sipil">Teknik Sipil</option>'+
-                '<option value="Teknik Arsitektur">Teknik Arsitektur</option>'+    
+                        '<option value="Teknologi Informasi" '+
+                            (matakuliah.prodi == "Teknologi Informasi" ? " selected " : "")
+                        +' >Teknologi Informasi</option>'+
+                        '<option value="Teknik Mesin"'+
+                            (matakuliah.prodi == "Teknik Mesin" ? " selected " : "")
+                        +'>Teknik Mesin</option>'+
+                        '<option value="Teknik Sipil"'+
+                            (matakuliah.prodi == "Teknik Sipil" ? " selected " : "")
+                        +'>Teknik Sipil</option>'+
+                        '<option value="Teknik Arsitektur"'+
+                            (matakuliah.prodi == "Teknik Arsitektur" ? " selected " : "")
+                        +'>Teknik Arsitektur</option>'+    
             '</select>',
         focusConfirm: false,
         preConfirm: () => {
