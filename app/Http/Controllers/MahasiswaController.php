@@ -203,34 +203,39 @@ class MahasiswaController extends Controller
     public function update(Request $request)
     {
 
+        // SECURITY
+        $validator = Validator::make($request->all(),[
+            'nama' => 'required|min:3|max:100',
+            'alamat' => 'required|min:3|max:100',
+            'email' => 'required|min:3|max:100',
+            'angkatan' => 'required|numeric|between:2016,2021',
+            'program_studi' => 'required|in:Teknologi Informasi,Teknik Mesin,Teknik Sipil,Teknik Arsitektur,Teknik Elektro,Teknik Industri',
+        ]);
 
-
-        // // SECURITY
-        // $validator = Validator::make($request->all(),[
-        //     'nim' => 'required|numeric|between:0,999',
-        //     'nama' => 'required|min:3|max:100',
-        //     'alamat' => 'required|min:3|max:100',
-        //     'telepon' => 'required|numeric|between:0,999',
-        //     'email' => 'required|min:3|max:100',
-        //     'password' => 'required|min:3|max:8',
-        //     'progam_studi' => 'required|in:Teknologi Informasi,Teknik Mesin,Teknik Sipil,Teknik Arsitektur,Teknik Elektro,Teknik Industri',
-        // ]);
-
-        // if($validator->fails()){
-        //     return redirect()->back()->with([
-        //         'status' => 'fail',
-        //         'icon' => 'error',
-        //         'title' => 'Fail !',
-        //         'message' => 'Mohon perhatikan data yang anda inputkan !',
-        //     ])->withErrors($validator->errors())->withInput($request->all());
-        // }
+        if($validator->fails()){
+            // dd($validator->errors(),$request->all());
+            return redirect()->back()->with([
+                'status' => 'fail',
+                'icon' => 'error',
+                'title' => 'Fail !',
+                'message' => 'Mohon perhatikan data yang anda inputkan !',
+            ])->withErrors($validator->errors())->withInput($request->all());
+        }
     // END
 
     // MAIN LOGIC
         try{
             DB::beginTransaction();
+            // dd($request->all());
 
             $mahasiswa = Mahasiswa::findOrFail($request->id);
+
+            $foto_mahasiswa = 'default.jpg';
+            if($request->hasFile('foto_mahasiswa')){
+                $foto_mahasiswa = basename($request->file('foto_mahasiswa')->store('public/foto_mahasiswa'));
+                $mahasiswa->update(['foto_mahasiswa' => $foto_mahasiswa]);
+            }
+        
 
             $mahasiswa->update([
                 'nim' => $request->nim,
@@ -239,9 +244,8 @@ class MahasiswaController extends Controller
                 'telepon' => $request->telepon,
                 'email' => $request->email,
                 'password' => hash::make($request->password),
-                // 'angkatan' => $request->angkatan,
+                'angkatan' => $request->angkatan,
                 'program_studi' => $request->program_studi
-                // 'foto_mahasiswa' => $request->foto_mahasiswa
                 ]);
 
             DB::commit();

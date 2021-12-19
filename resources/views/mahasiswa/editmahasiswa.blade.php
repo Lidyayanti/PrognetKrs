@@ -30,11 +30,11 @@
                 <p class="text-danger"><small>{{ $errors->first('alamat') }}</small></p>
             @enderror
 
-            <!-- <label for="exampleInputEmail1">Image</label>
-            <input type="file" name="foto" class="form-control-file" placeholder="Input Name" accept="image/*">
-            @error('foto')
-                <p class="text-danger"><small>{{ $errors->first('foto') }}</small></p>
-            @enderror -->
+            <label for="exampleInputEmail1">Image</label>
+            <input type="file" name="foto_mahasiswa" class="form-control-file" placeholder="Input Name" accept="image/*">
+            @error('foto_mahasiswa')
+                <p class="text-danger"><small>{{ $errors->first('foto_mahasiswa') }}</small></p>
+            @enderror
 
             <label for="exampleInputEmail1">EMAIL</label>
             <input type="text" step="any" name="email" class="form-control" placeholder="Input email" value="{{ $mahasiswa->email }}" required>
@@ -52,6 +52,12 @@
             <input type="number" step="any" name="telepon" class="form-control" placeholder="Input Telepon" value="{{ $mahasiswa->telepon }}" required>
             @error('telepon')
                 <p class="text-danger"><small>{{ $errors->first('telepon') }}</small></p>
+            @enderror
+
+            <label for="exampleInputEmail1">ANGKATAN</label>
+            <input type="number" step="any" name="angkatan" class="form-control" placeholder="Input Angkatan" value="{{ $mahasiswa->angkatan }}" required>
+            @error('telepon')
+                <p class="text-danger"><small>{{ $errors->first('angkatan') }}</small></p>
             @enderror
 
 
