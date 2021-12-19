@@ -53,17 +53,20 @@
 
 @push('js')
 <script>
+    
+    let matakuliahs = {!! $matakuliahs !!};
+
     $(document).ready(function() {
         console.log("ready");
         $('#tableMahasiswa').DataTable( {
-            data: {!! $matakuliahs !!},
+            data: matakuliahs,
             columns: [
                 { title: "Nama Matakuliah", data : "nama_matakuliah"},
                 { title: "Semester", data : "semester"},
                 { title: "SKS", data: "sks" },
                 { title: "Prodi", data: "prodi" },
                 { title: "Action", data : "id" , render : function (data, type, row, meta) {
-                    return '<a href="{{ Route('admin.dashboard.mahasiswa.detail') }}/'+data+'" class="btn-sm btn-primary mr-1">EDIT</a>'+
+                    return '<button onclick="showFormEdit('+meta.row+')" class="btn-sm btn-primary mr-1">EDIT</button>'+
                            '<a href="{{ Route('admin.dashboard.mahasiswa.detail') }}/'+data+'" class="btn-sm btn-danger mr-1">DELETE</a>';
                 }},
             ]
@@ -78,5 +81,36 @@
         console.log(semester,prodi);
         window.location.href = "{{ Route('admin.matakuliah.index') }}"+"/"+prodi+"/"+semester;
     }
+
+    function showFormEdit(records){
+        
+        let matakuliah = matakuliahs[records]
+
+        Swal.fire({
+        title: 'Form Update Matakuliah',
+        html:
+            '<label class="w-25">NAMA</label>'+
+            '<input id="swal-input1" class="swal2-input w-50" value="'+matakuliah.nama_matakuliah+'">' +
+            '<label class="w-25">Semester</label>'+ 
+            '<input id="swal-input2" class="swal2-input w-50" value="'+matakuliah.semester+'">'+
+            '<label class="w-25">SKS</label>'+
+            '<input id="swal-input2" class="swal2-input w-50" value="'+matakuliah.sks+'">'+
+            '<label class="w-25">PRODI</label>'+
+            '<select id="swal-input3" class="swal2-input w-50">'+
+                '<option value="Teknologi Informasi">Teknologi Informasi</option>'+
+                '<option value="Teknik Mesin">Teknik Mesin</option>'+
+                '<option value="Teknik Sipil">Teknik Sipil</option>'+
+                '<option value="Teknik Arsitektur">Teknik Arsitektur</option>'+    
+            '</select>',
+        focusConfirm: false,
+        preConfirm: () => {
+            return [
+            document.getElementById('swal-input1').value,
+            document.getElementById('swal-input2').value
+            ]
+        }
+    })
+    }
+
 </script>
 @endpush
