@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Matakuliah;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use PDOException;
 
 class MatakuliahController extends Controller
 {
@@ -12,9 +15,36 @@ class MatakuliahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($prodi = "all",$semester = "all")
     {
-        //
+        // MAIN LOGIC
+            try{
+                $matakuliahs = Matakuliah::query();
+                
+                // DOING FILTER
+                if($prodi != "all"){
+                    $matakuliahs->where('prodi',$prodi);
+                }
+
+                if($semester != 'all'){
+                    $matakuliahs->where('semester',$semester);
+                }
+                
+                $matakuliahs = $matakuliahs->get();
+
+            }catch(ModelNotFoundException | QueryException | PDOException | \Throwable | \Exception $err){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Fail !',
+                    'message' => 'Internal Server Error !',
+                ]);
+            }
+        // END
+
+        // RETURN
+            return view('admin.matakuliah.matakuliah-index',compact(['matakuliahs','prodi','semester']));
+        // END
     }
 
     /**
