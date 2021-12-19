@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\TransaksiKrsController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,7 +53,18 @@ Route::prefix('admin')->group(function(){
         Route::get('mahasiswa',[AdminController::class,'showMahasiswas'])->name('admin.dashboard.mahasiswa');
         Route::get('mahasiswa/detail/{id?}',[AdminController::class,'showMahasiswaDetail'])->name('admin.dashboard.mahasiswa.detail');
         Route::post('mahasiswa/perbarui',[AdminController::class,'perbaruiMahasiswa'])->name('admin.dashboard.mahasiswa.perbarui');
-        
         Route::post('mahasiswa/tolak',[AdminController::class,'tolakMahasiswa'])->name('admin.dashboard.mahasiswa.tolak');
+
+        // MASTER DATA MATAKULIAH
+            Route::get('matkul/{prodi?}/{semester?}',[MatakuliahController::class,'index'])->name('admin.matakuliah.index');
+
+            Route::get('matkul/create',[MatakuliahController::class,'create'])->name('admin.matakuliah.create');
+            Route::post('matkul/store',[MatakuliahController::class,'store'])->name('admin.matakuliah.store');
+            
+            Route::get('matkul/edit',[MatakuliahController::class,'edit'])->name('admin.matakuliah.edit');
+            Route::put('matkul/update',[MatakuliahController::class,'update'])->name('admin.matakuliah.update');
+
+            Route::delete('matkul/delete',[MatakuliahController::class,'destroy'])->name('admin.matakuliah.destroy');
+        // END
     });
 });

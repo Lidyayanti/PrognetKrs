@@ -213,11 +213,46 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-header">TRANSAKSI</li>
           <li class="nav-item">
               <a href="{{ Route('admin.dashboard.mahasiswa') }}" class="nav-link @yield('mahasiswa-active')">
                 <i class="fas fa-tachometer-alt"></i>
                 <p>
+                  Transaksi KRS
+                </p>
+              </a>
+          </li>
+        <li class="nav-header">MASTER DATA</li>
+          <li class="nav-item">
+              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('matakuliah-active')">
+                <i class="fas fa-book"></i>
+                <p>
+                  Matakuliah
+                </p>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('md-mahasiswa-active')">
+                <i class="fas fa-users"></i>
+                <p>
                   Mahasiswa
+                </p>
+              </a>
+          </li>
+        <li class="nav-header">Report</li>
+          <li class="nav-item">
+              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('md-mahasiswa-active')">
+                <i class="fas fa-flag-checkered"></i>
+                <p>
+                  Report Matakuliah
+                </p>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('md-mahasiswa-active')">
+                <i class="fas fa-flag-checkered"></i>
+                <p>
+                  Report Mahasiswa
                 </p>
               </a>
           </li>
