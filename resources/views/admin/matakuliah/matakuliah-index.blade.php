@@ -78,5 +78,38 @@
         console.log(semester,prodi);
         window.location.href = "{{ Route('admin.matakuliah.index') }}"+"/"+prodi+"/"+semester;
     }
+
+    Swal.fire({
+        title: 'Multiple inputs',
+        html:
+            '<label class="w-25">NAMA</label>'+
+            '<input id="swal-input1" class="swal2-input">' +
+            '<label class="w-25">Semester</label>'+
+            '<input id="swal-input2" class="swal2-input">'+
+            '<label class="w-25">SKS</label>'+
+            '<input id="swal-input2 w-50" class="swal2-input">'+
+            '<label class="w-25">PRODI</label>'+
+            '<select class="swal2-input w-50" id="selectSemester">'+
+                '<option value="all">All</option>'+
+                '<option value="1" @if( $semester == 1 ) selected @endif>1</option>'+
+                '<option value="2" @if( $semester == 2 ) selected @endif>2</option>'+
+                '<option value="3" @if( $semester == 3 ) selected @endif>3</option>'+
+                '<option value="4" @if( $semester == 4 ) selected @endif>4</option>'+
+                '<option value="5" @if( $semester == 5 ) selected @endif>5</option>'+
+                '<option value="6" @if( $semester == 6 ) selected @endif>6</option>'+
+                '<option value="7" @if( $semester == 7 ) selected @endif>7</option>'+
+                '<option value="8" @if( $semester == 8 ) selected @endif>8</option>'+
+            '</select>',
+        focusConfirm: false,
+        preConfirm: () => {
+            return [
+            document.getElementById('swal-input1').value,
+            document.getElementById('swal-input2').value
+            ]
+        }
+    })
+
+
+
 </script>
 @endpush
