@@ -5,9 +5,9 @@
 @section('content')
 <div class="col-12">
         <h5 class="font-weight-bold text-center text-dark bg-info mx-n3 p-3">Profile Mahasiswa</h5>
-        <!-- <div class="col-12 text-center">
-            <img src="{{ asset('storage/foto_mahasiswa/'.$mahasiswa->foto) }}" alt="" class="img-thumbnail rounded-circle shadow" style="width:150px;height:150px;object-fit:cover;">
-        </div> -->
+        <div class="col-12 text-center">
+            <img src="{{ asset('storage/foto_mahasiswa'.'/'.$mahasiswa->foto_mahasiswa) }}" alt="" class="img-thumbnail rounded-circle shadow" style="width:150px;height:150px;object-fit:cover;">
+        </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Nama</label>
             <input type="text" name="nama" class="form-control" placeholder="Nama" value="{{ $mahasiswa->nama }}" readonly>
