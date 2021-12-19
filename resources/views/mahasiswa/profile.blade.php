@@ -44,10 +44,6 @@
 
 
             <div class="col-12 text-center mt-4">
-                <a href="{{ url('/') }}" class="btn btn-danger btn-md mx-2">KEMBALI</a>
-            </div>
-
-            <div class="col-12 text-center mt-4">
                 <a href="{{ route('mahasiswa.edit') }}" class="btn btn-success btn-md mx-2">UPDATE</a>
             </div>
 
