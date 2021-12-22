@@ -222,6 +222,14 @@
                 </p>
               </a>
           </li>
+          <li class="nav-item">
+              <a href="{{ Route('admin.dashboard.mahasiswa') }}" class="nav-link @yield('admin-transaksi-nilai')">
+              <i class="far fa-address-card"></i>
+                <p>
+                  Transaksi Nilai
+                </p>
+              </a>
+          </li>
         <li class="nav-header">MASTER DATA</li>
           <li class="nav-item">
               <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('matakuliah-active')">

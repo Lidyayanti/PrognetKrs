@@ -13,7 +13,8 @@
     <div class="row">
         <div class="col-12 card">
             <h5 class="bg-primary mx-n2 mt-n2 p-2">KRS ANDA</h5>
-            <div class="col-12 col-lg-4 mb-4">
+            <div class="row">
+                <div class="col-12 col-lg-4">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">SEMESTER</label>
                             <select name="semester" id="semester" class="form-control" id="exampleFormControlSelect1">
@@ -32,7 +33,8 @@
                     </div>
                     <button class="btn-sm" onclick="goToURL()">FILTER</button>
                 </div>
-            <table id="tablekrs" class="stripe display m-3" style="width:100%"></table>
+            </div>
+            <table id="tablekrs" class="stripe display" style="width:100%"></table>
         </div>
     </div>
 </div>
@@ -40,8 +42,6 @@
 
 @push('js')
 <script>
-$(document).ready(function() {
-
 $(document).ready(function() {
     $('#tablekrs').DataTable( {
             data: {!! $krss !!},
@@ -52,7 +52,6 @@ $(document).ready(function() {
                 { title: "Nilai", data: "nilai" },
             ]
         } );
-} );
 } );
 
 function goToURL(){

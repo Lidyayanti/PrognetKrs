@@ -29,7 +29,9 @@ class TransaksiKrsController extends Controller
 
                 $matakuliahs = Matakuliah::orderBy('semester',"ASC")->where('prodi',$user->program_studi)
                                                 ->get();
-            
+                
+                $tahunAjaran = date('Y');
+
             }catch(ModelNotFoundException | ErrorException | PDOException | QueryException $err){
                 return redirect()->back()->with([
                     'status' => 'failed',
@@ -41,7 +43,7 @@ class TransaksiKrsController extends Controller
         // END
 
         // RETURN
-            return view('mahasiswa.transaksi-krs',compact(['matakuliahs','user']));
+            return view('mahasiswa.transaksi-krs',compact(['matakuliahs','user','tahunAjaran']));
         // END
     }
 
@@ -66,8 +68,7 @@ class TransaksiKrsController extends Controller
         // SECURITY
             $validator = Validator::make($request->all(),[
                 'matakuliahs.*' => 'required|numeric',
-                'matakuliahs' => 'required|array',
-                'tahun_ajaran' => 'required|integer'
+                'matakuliahs' => 'required|array'
             ]);
 
             if($validator->fails()){
@@ -88,7 +89,7 @@ class TransaksiKrsController extends Controller
 
                 foreach($request->matakuliahs as $index => $matakuliah){
                     $arrayInsert[] = [
-                        'tahun_ajaran' => $request->tahun_ajaran,
+                        'tahun_ajaran' => date("Y"),
                         'semester' => $user->semester,
                         'mahasiswa_id' => $user->id,
                         'matakuliah_id' => $matakuliah,

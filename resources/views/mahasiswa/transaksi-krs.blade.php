@@ -18,19 +18,7 @@
                     <div class="col-lg-4 col-12">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">TAHUN AJARAN</label>
-                            <select name="tahun_ajaran" class="form-control" id="exampleFormControlSelect1">
-                                <option>2015</option>
-                                <option>2016</option>
-                                <option>2017</option>
-                                <option>2018</option>
-                                <option>2019</option>
-                                <option>2020</option>
-                                <option selected>2021</option>
-                                <option>2022</option>
-                                <option>2023</option>
-                                <option>2024</option>
-                                <option>2025</option>
-                            </select>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="{{ isset($tahunAjaran) ? $tahunAjaran : 0}}" disabled>
                         </div>
                     </div>
 
@@ -50,7 +38,7 @@
                 </div>
                 @csrf
                 @method('POST')
-                <table id="tablekrs" class="stripe display m-3" style="width:100%"></table>
+                <table id="tablekrs" class="stripe display" style="width:100%"></table>
             </form>
         </div>
         <div class="col-12 p-1 text-center">
