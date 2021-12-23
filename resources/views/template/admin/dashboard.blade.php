@@ -223,7 +223,7 @@
               </a>
           </li>
           <li class="nav-item">
-              <a href="{{ Route('admin.dashboard.mahasiswa') }}" class="nav-link @yield('admin-transaksi-nilai')">
+              <a href="{{ Route('admin.transaksi.nilai') }}" class="nav-link @yield('admin-transaksi-nilai')">
               <i class="far fa-address-card"></i>
                 <p>
                   Transaksi Nilai

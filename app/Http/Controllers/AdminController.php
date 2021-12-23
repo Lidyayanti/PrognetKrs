@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\Matakuliah;
 use App\Models\TransaksiKrs;
 use ErrorException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -14,10 +15,29 @@ use Illuminate\Support\Facades\Input;
 
 class AdminController extends Controller
 {
-    public function showMahasiswas(){
+    public function showMahasiswas($semester = 'all'){
+        // VALIDATION
+            $validator = Validator::make(['semester' => $semester],[
+                'semester' => 'required',
+            ]);
+            
+            if($validator->fails()){
+                return redirect()->back()->with([
+                    'status' => 'failed',
+                    'icon' => 'failed',
+                    'title' => 'Server Error',
+                    'message' => 'Validation Error',
+                ]);
+            }
+        // END
+
         // MAIN LOGIC
             try{
-                $mahasiswas = Mahasiswa::orderBy('semester')->get();
+                if($semester == 'all'){
+                    $mahasiswas = Mahasiswa::orderBy('semester')->get();
+                }else{
+                    $mahasiswas = Mahasiswa::where('semester',$semester)->orderBy('semester')->get();
+                }
             }catch(ModelNotFoundException | ErrorException | PDOException | QueryException $err){
                 return redirect()->back()->with([
                     'status' => 'failed',
@@ -29,14 +49,12 @@ class AdminController extends Controller
         // END
 
         // RETURN
-            return view('admin.dashboard-mahasiswa',compact('mahasiswas'));
+            return view('admin.dashboard-mahasiswa',compact('mahasiswas','semester'));
         // END
     }
 
-    public function showMahasiswaDetail(Request $request,$id){
+    public function showMahasiswaDetail($semester = 1,$id){
         // SECURITY
-            
-            $semester = $request->get('semester',5);
 
             $validator = Validator::make(['id' => $id,'semester' => $semester],[
                 'id' => 'required|numeric',
@@ -134,7 +152,6 @@ class AdminController extends Controller
                 TransaksiKrs::destroy($TransaksiKrs->pluck('id'));
 
             }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err){
-                dd($err);
                 return redirect()->back()->with([
                     'status' => 'fail',
                     'icon' => 'error',
@@ -151,6 +168,58 @@ class AdminController extends Controller
                 'title' => 'Berhasil Menghapus KRS',
                 'message' => 'Berhasil menghapus KRS',
             ]);
+        // END
+    }
+
+    public function showTransaksiNilai($prodi = "all", $status_mk = "all", $semester = "all"){
+        // SECURITY
+            $validator = Validator::make(['prodi' => $prodi, 'status_mk' => $status_mk, 'semester' => $semester],[
+                'prodi' => 'required',
+                'status_mk' => 'required',
+                'semester' => 'required'
+            ]);
+            
+            if($validator->fails()){
+                dd($validator->errors());
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Fail !',
+                    'message' => 'Pastikan Input Sesuai !',
+                ]);
+            }
+        // END
+        
+        // MAIN LOGIC
+            try{
+                $matakuliahs = Matakuliah::query();
+
+                if($prodi != "all"){
+                    $matakuliahs->where('prodi',$prodi);
+                }
+
+                if($prodi != "status_mk"){
+                    $matakuliahs->where('status_mk',$status_mk);
+                }
+
+                if($semester != "all"){
+                    $matakuliahs->where('semester',$semester);
+                }
+
+                $matakuliahs = $matakuliahs->get();
+
+            }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err) {
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Fail !',
+                    'message' => 'Internal Server Error',
+                ]);
+            }
+        // END
+        
+        // RETURN
+            return view('admin.dashboard-transaksi-nilai',compact(['matakuliahs','prodi','semester','status_mk']));
         // END
     }
 }

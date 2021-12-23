@@ -1,7 +1,7 @@
 @extends('template.admin.dashboard')
 
-@section('mahasiswa-active','active')
-@section('title','Mahasiswa')
+@section('admin-transaksi-nilai','active')
+@section('title','Transaksi Nilai')
 
 @section('breadcrumb')
 <li class="breadcrumb-item">Mahasiswa</li>
@@ -11,12 +11,13 @@
 <div class="conteiner-fluid">
     <div class="row">
         <div class="col-12 card">
-            <h5 class="bg-primary mx-n2 mt-n2 p-2">PILIHAN MATAKULIAH</h5>
+            <h5 class="bg-primary mx-n2 mt-n2 p-2">MATAKULIAH</h5>
             <div class="row">
                 <div class="col-12 col-lg-4 mb-4">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">SEMESTER</label>
                             <select name="semester" class="form-control" id="semester">
+                                <option value="1" @if($semester == "all") selected @endif>all</option>
                                 <option value="1" @if($semester == 1) selected @endif>1</option>
                                 <option value="2" @if($semester == 2) selected @endif>2</option>
                                 <option value="3" @if($semester == 3) selected @endif>3</option>
@@ -30,19 +31,34 @@
                                 <option value="11" @if($semester == 11) selected @endif>11</option>
                             </select>
                     </div>
+                </div>
+                <div class="col-12 col-lg-4 mb-4">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">PROGRAM STUDI</label>
+                            <select name="semester" class="form-control" id="prodi">
+                                <option value="1" @if($semester == "all") selected @endif>all</option>
+                                <option value="Teknologi Informasi" @if($semester == "Teknologi Informasi") selected @endif>Teknologi Informasi</option>
+                                <option value="Teknik Mesin" @if($semester == "Teknik Mesin") selected @endif>Teknik Mesin</option>
+                                <option value="Teknik Sipil" @if($semester == "Teknik Sipil") selected @endif>Teknik Sipil</option>
+                                <option value="Teknik Arsitektur" @if($semester == "Teknik Arsitektur") selected @endif>Teknik Arsitektur</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 mb-4">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">STATUS MK</label>
+                            <select name="semester" class="form-control" id="status_mk">
+                                <option value="1" @if($semester == "all") selected @endif>all</option>
+                                <option value="Wajib" @if($semester == "Wajib") selected @endif>Wajib</option>
+                                <option value="Pilihan" @if($semester == "Pilihan") selected @endif>Pilihan</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
                     <button class="btn-sm" onclick="goToURL()">FILTER</button>
                 </div>
             </div>
             <table id="tableMahasiswa" class="stripe display m-3" style="width:100%"></table>
-        </div>
-        <div class="col-12 p-1 text-center">
-            <button type="button" onclick="submitWarning()" class="btn-md px-5 btn-danger">HAPUS</butt>
-            <form action="{{ Route('admin.dashboard.mahasiswa.tolak') }}" method="post" id="form_delete">
-                @csrf
-                @method('post')
-                <input type="hidden" value="{{ $mahasiswa->id }}" name="mahasiswa_id">
-                <input type="hidden" value="{{ $semester }}" name="semester">
-            </form>
         </div>
     </div>
 </div>
@@ -53,7 +69,7 @@
     $(document).ready(function() {
         console.log("ready");
         $('#tableMahasiswa').DataTable( {
-            data: {!! $krss !!},
+            data: {!! $matakuliahs !!},
             columns: [
                 { title: "Name Matakuliah", data : "matakuliah.nama_matakuliah"},
                 { title: "SKS", data : "matakuliah.sks"},
@@ -102,7 +118,7 @@
 
     function goToURL(){
         let semester = document.getElementById('semester').value;
-        window.location.href = "{{ url('/admin/dashboard/mahasiswa/detail') }}"+"/"+semester+"/"+"{{ $mahasiswa->id }}";
+        // window.location.href = "{{ Route('admin.transaksi.nilai') }}";
     }
 </script>
 @endpush

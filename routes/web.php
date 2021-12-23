@@ -50,11 +50,13 @@ Route::prefix('admin')->group(function(){
     Route::post('login',[AuthController::class,'postLoginAdmin'])->name('admin.post.login');
 
     Route::prefix('dashboard')->group(function(){
-        Route::get('mahasiswa',[AdminController::class,'showMahasiswas'])->name('admin.dashboard.mahasiswa');
-        Route::get('mahasiswa/detail/{id?}',[AdminController::class,'showMahasiswaDetail'])->name('admin.dashboard.mahasiswa.detail');
+        Route::get('mahasiswa/{semester?}',[AdminController::class,'showMahasiswas'])->name('admin.dashboard.mahasiswa');
+        Route::get('mahasiswa/detail/{semester?}/{id?}',[AdminController::class,'showMahasiswaDetail'])->name('admin.dashboard.mahasiswa.detail');
         Route::post('mahasiswa/perbarui',[AdminController::class,'perbaruiMahasiswa'])->name('admin.dashboard.mahasiswa.perbarui');
         Route::post('mahasiswa/tolak',[AdminController::class,'tolakMahasiswa'])->name('admin.dashboard.mahasiswa.tolak');
+        
 
+        Route::get('nilai/{prodi?}/{status_mk?}/{semester?}',[AdminController::class,'showTransaksiNilai'])->name('admin.transaksi.nilai');
         // MASTER DATA MATAKULIAH
             Route::get('matkul/{prodi?}/{semester?}',[MatakuliahController::class,'index'])->name('admin.matakuliah.index');
 
