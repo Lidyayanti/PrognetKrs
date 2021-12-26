@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'kode' => 'TI-JARKOM-2',
-                'nama_matakuliah' => 'Jaringan Komputer dan Komunikas',
+                'nama_matakuliah' => 'Jaringan Komputer dan Komunikasi',
                 'semester' => 2,
                 'sks' => 3,
                 'prodi' => DatabaseSeeder::$prodi[0],
