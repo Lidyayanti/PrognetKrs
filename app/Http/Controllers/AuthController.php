@@ -132,7 +132,6 @@ class AuthController extends Controller
             ]);
 
             if($validator->fails()){
-                dd("val");
                 return redirect()->back()->with([
                     'status' => 'fail',
                     'icon' => 'error',
@@ -165,7 +164,12 @@ class AuthController extends Controller
         // END
 
         // RETURN
-
+        return redirect()->route('admin.dashboard.mahasiswa')->with([
+            'status' => 'success',
+            'icon' => 'success',
+            'title' => 'Berhasil Login',
+            'message' => 'Selamat datang admin'
+        ]);
         // END
     }
 }

@@ -20,4 +20,8 @@ class Matakuliah extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function TransaksiKrs(){
+        return $this->hasMany(TransaksiKrs::class,'matakuliah_id','id');
+    }
 }

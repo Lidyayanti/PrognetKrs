@@ -25,7 +25,6 @@ Route::get('/', function () {
 Route::prefix('user')->group(function(){
     Route::post('login',[AuthController::class,'login'])->name('user.login');
     Route::post('register',[AuthController::class,'register'])->name('user.register');
-
 });
 
 Route::prefix('mahasiswa')->group(function(){
@@ -55,8 +54,9 @@ Route::prefix('admin')->group(function(){
         Route::post('mahasiswa/perbarui',[AdminController::class,'perbaruiMahasiswa'])->name('admin.dashboard.mahasiswa.perbarui');
         Route::post('mahasiswa/tolak',[AdminController::class,'tolakMahasiswa'])->name('admin.dashboard.mahasiswa.tolak');
         
+        Route::get('niiali/{prodi?}/{status_mk?}/{semester?}',[AdminController::class,'showTransaksiNilai'])->name('admin.transaksi.nilai');
+        Route::get('nilaidetail/{id?}/{tahunAjaran?}',[AdminController::class,'showTransaksiNilaiDetail'])->name('admin.transaksi.nilai.detail');
 
-        Route::get('nilai/{prodi?}/{status_mk?}/{semester?}',[AdminController::class,'showTransaksiNilai'])->name('admin.transaksi.nilai');
         // MASTER DATA MATAKULIAH
             Route::get('matkul/{prodi?}/{semester?}',[MatakuliahController::class,'index'])->name('admin.matakuliah.index');
 
