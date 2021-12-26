@@ -46,6 +46,15 @@
                 </div>
             </div>
             <table id="tableMahasiswa" class="stripe display m-3" style="width:100%"></table>
+            <form method="POST" action="{{ Route('admin.matakuliah.update') }}" class="d-none" id="form_update">
+                @csrf
+                @method('PUT')
+                <input type="hidden" id="form_id" name="id">
+                <input type="hidden" id="form_nama_matakuliah" name="nama_matakuliah">
+                <input type="hidden" id="form_semester" name="semester">
+                <input type="hidden" id="form_sks" name="sks">
+                <input type="hidden" id="form_prodi" name="prodi">
+            </form>
         </div>
     </div>
 </div>
@@ -53,8 +62,8 @@
 
 @push('js')
 <script>
-    
-    let matakuliahs = {!! $matakuliahs !!};
+
+    let matakuliahs =  {!! $matakuliahs !!}
 
     $(document).ready(function() {
         console.log("ready");
@@ -108,32 +117,29 @@
             '<input id="sks" class="swal2-input w-50" value="'+matakuliah.sks+'">'+
             '<label class="w-25">PRODI</label>'+
             '<select id="prodi" class="swal2-input w-50">'+
-                        '<option value="Teknologi Informasi" '+
-                            (matakuliah.prodi == "Teknologi Informasi" ? " selected " : "")
-                        +' >Teknologi Informasi</option>'+
-                        '<option value="Teknik Mesin"'+
-                            (matakuliah.prodi == "Teknik Mesin" ? " selected " : "")
-                        +'>Teknik Mesin</option>'+
-                        '<option value="Teknik Sipil"'+
-                            (matakuliah.prodi == "Teknik Sipil" ? " selected " : "")
-                        +'>Teknik Sipil</option>'+
-                        '<option value="Teknik Arsitektur"'+
-                            (matakuliah.prodi == "Teknik Arsitektur" ? " selected " : "")
-                        +'>Teknik Arsitektur</option>'+    
-            '</select>',
+            '<option value="Teknologi Informasi" '+(matakuliah.prodi == "Teknologi Informasi" ? " selected " : "")+'>Teknologi Informasi</option>'+
+            '<option value="Teknik Mesin"'+(matakuliah.prodi == "Teknik Mesin" ? " selected " : "")+'>Teknik Mesin</option>'+
+            '<option value="Teknik Sipil"'+(matakuliah.prodi == "Teknik Sipil" ? " selected " : "")+'>Teknik Sipil</option>'+
+            '<option value="Teknik Arsitektur"'+(matakuliah.prodi == "Teknik Arsitektur" ? " selected " : "")+'>Teknik Arsitektur</option></select>',
         focusConfirm: false,
         preConfirm: () => {
-            return [
-            "nama_matakuliah" : document.getElementById('nama_matakuliah').value,
-            "semester" : document.getElementById('semester').value,
-            "sks" = document.getElementById('sks').value,
-            "prodi" = document.getElementById('prodi').value,
-            ]
+            return {
+                id : matakuliah.id,
+                nama_matakuliah : document.getElementById('nama_matakuliah').value,
+                semester : document.getElementById('semester').value,
+                sks : document.getElementById('sks').value,
+                prodi : document.getElementById('prodi').value,
+            }
         }
         });
     
         if (formValues) {
-            console.log(formValues);
+            $('#form_id').val(formValues.id)
+            $('#form_nama_matakuliah').val(formValues.nama_matakuliah)
+            $('#form_semester').val(formValues.semester)
+            $('#form_sks').val(formValues.sks)
+            $('#form_prodi').val(formValues.prodi)
+            $('#form_update').submit()
         }
     }
 

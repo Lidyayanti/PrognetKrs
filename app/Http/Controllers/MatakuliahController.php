@@ -33,7 +33,6 @@ class MatakuliahController extends Controller
                 }
                 
                 $matakuliahs = $matakuliahs->get();
-
             }catch(ModelNotFoundException | QueryException | PDOException | \Throwable | \Exception $err){
                 return redirect()->back()->with([
                     'status' => 'fail',
@@ -103,6 +102,7 @@ class MatakuliahController extends Controller
     {
         // VALIDATOR
             $validator = Validator::make($request->all(),[
+                'id' => 'required',
                 'nama_matakuliah' => 'required',
                 'semester' => 'required|between:1,8',
                 'sks' => 'required|between:1,6',
@@ -114,10 +114,16 @@ class MatakuliahController extends Controller
             try{
                 DB::beginTransaction();
                 
-                $matakuliahs = Matakuliah::query();
+                $matakuliahs = Matakuliah::findOrFail($request->id)->update([
+                    'nama_matakuliah' => $request->nama_matakuliah,
+                    'semester' => $request->semester,
+                    'sks' => $request->sks,
+                    'prodi' => $request->prodi
+                ]);
             
                 DB::commit();
             }catch(ModelNotFoundException | QueryException | PDOException | \Throwable | \Exception $err){
+                dd($err);
                 DB::rollBack();
                 return redirect()->back()->with([
                     'status' => 'fail',
@@ -129,7 +135,12 @@ class MatakuliahController extends Controller
         // END
 
         // RETURN
-
+            return redirect()->back()->with([
+                'status' => 'success',
+                'icon' => 'success',
+                'title' => 'success !',
+                'message' => 'Berhasil Update Data Matakuliah',
+            ]);
         // END
     }
 

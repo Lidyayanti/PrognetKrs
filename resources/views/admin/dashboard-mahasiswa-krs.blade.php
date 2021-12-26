@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-12 col-lg-4 mb-4">
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">SEMESTER</label>
+                            <label for="exampleFormControlSelect1">SEMESTER</label>
                             <select name="semester" class="form-control" id="semester">
                                 <option value="1" @if($semester == 1) selected @endif>1</option>
                                 <option value="2" @if($semester == 2) selected @endif>2</option>
@@ -33,7 +33,7 @@
                     <button class="btn-sm" onclick="goToURL()">FILTER</button>
                 </div>
             </div>
-            <table id="tableMahasiswa" class="stripe display m-3" style="width:100%"></table>
+            <table id="tableMahasiswa" class="stripe display" style="width:100%"></table>
         </div>
     </div>
 </div>
@@ -50,17 +50,6 @@
                 { title: "SKS", data : "matakuliah.sks"},
                 { title: "Semester", data: "matakuliah.semester" },
                 { title: "Nilai Saat Ini", data: "nilai" },
-                { title: "Action", data : "id" , render : function (data, type, row, meta) {
-                    return '<select name="nilai['+data+']" class="form-control" id="exampleFormControlSelect1">'+
-                                '<option value=""></option>'+
-                                '<option value="A">A</option>'+
-                                '<option value="B">B</option>'+
-                                '<option value="C">C</option>'+
-                                '<option value="D">D</option>'+
-                                '<option value="E">E</option>'+
-                                '<option value="Tunda">TUNDA</option>'+
-                            '</select>';
-                }},
             ]
         } );
     } );
