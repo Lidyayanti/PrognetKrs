@@ -240,7 +240,7 @@
               </a>
           </li>
           <li class="nav-item">
-              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('md-mahasiswa-active')">
+              <a href="{{ Route('admin.mahasiswa.index') }}" class="nav-link @yield('md-mahasiswa-active')">
                 <i class="fas fa-users"></i>
                 <p>
                   Mahasiswa
@@ -249,7 +249,7 @@
           </li>
         <li class="nav-header">Report</li>
           <li class="nav-item">
-              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('md-mahasiswa-active')">
+              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('report=matakuliah')">
                 <i class="fas fa-flag-checkered"></i>
                 <p>
                   Report Matakuliah
@@ -257,7 +257,7 @@
               </a>
           </li>
           <li class="nav-item">
-              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('md-mahasiswa-active')">
+              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('report-mahasiswa')">
                 <i class="fas fa-flag-checkered"></i>
                 <p>
                   Report Mahasiswa

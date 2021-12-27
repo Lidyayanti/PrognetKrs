@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\MasterDataMahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\TransaksiKrsController;
 use Illuminate\Support\Facades\Route;
@@ -58,15 +59,21 @@ Route::prefix('admin')->group(function(){
         Route::get('nilaidetail/{id?}/{tahunAjaran?}',[AdminController::class,'showTransaksiNilaiDetail'])->name('admin.transaksi.nilai.detail');
 
         // MASTER DATA MATAKULIAH
-            Route::get('matkul/{prodi?}/{semester?}',[MatakuliahController::class,'index'])->name('admin.matakuliah.index');
+            Route::get('masterdata/matkul/{prodi?}/{semester?}',[MatakuliahController::class,'index'])->name('admin.matakuliah.index');
 
-            Route::get('matkul/create',[MatakuliahController::class,'create'])->name('admin.matakuliah.create');
-            Route::post('matkul/store',[MatakuliahController::class,'store'])->name('admin.matakuliah.store');
+            Route::get('masterdata/matkul/create',[MatakuliahController::class,'create'])->name('admin.matakuliah.create');
+            Route::post('masterdata/matkul/store',[MatakuliahController::class,'store'])->name('admin.matakuliah.store');
             
-            Route::get('matkul/edit',[MatakuliahController::class,'edit'])->name('admin.matakuliah.edit');
-            Route::put('matkul/update',[MatakuliahController::class,'update'])->name('admin.matakuliah.update');
+            Route::get('masterdata/matkul/edit',[MatakuliahController::class,'edit'])->name('admin.matakuliah.edit');
+            Route::put('masterdata/matkul/update',[MatakuliahController::class,'update'])->name('admin.matakuliah.update');
 
-            Route::delete('matkul/delete',[MatakuliahController::class,'destroy'])->name('admin.matakuliah.destroy');
+            Route::delete('masterdata/matkul/delete',[MatakuliahController::class,'destroy'])->name('admin.matakuliah.destroy');
+
+            Route::get('masterdata/mahasiswa/{semester?}/{prodi?}',[MasterDataMahasiswaController::class,'index'])->name('admin.mahasiswa.index');
+
+            Route::post('masterdata/mahasiswa',[MasterDataMahasiswaController::class,'store'])->name('admin.mahasiswa.store');
+
+            Route::put('masterdata/mahasiswa',[MasterDataMahasiswaController::class,'update'])->name('admin.mahasiswa.update');
         // END
     });
 });
