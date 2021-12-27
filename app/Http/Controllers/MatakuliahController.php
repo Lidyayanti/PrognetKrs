@@ -66,7 +66,59 @@ class MatakuliahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // SECURITY
+            $validator = Validator::make($request->all(),[
+                'nama_matakuliah' => 'required',
+                'semester' => 'required|between:1,8',
+                'kode' => 'required',
+                'sks' => 'required',
+                'prodi' => 'required|in:Teknologi Informasi,Teknik Mesin,Teknik Sipil,Teknik Arsitektur'
+            ]);
+            
+            if($validator->fails()){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Validasi Gagal !',
+                    'message' => 'Validation Error',
+                ]);
+            
+            }
+        // END
+        
+        // MAIN LOGIC
+            try{
+                DB::beginTransaction();
+                
+                Matakuliah::create([
+                    'nama_matakuliah' => $request->nama_matakuliah,
+                    'semester' => $request->semester,
+                    'kode' => $request->kode,
+                    'sks' => $request->sks,
+                    'prodi' => $request->prodi
+                ]);
+            
+                DB::commit();
+            }catch(ModelNotFoundException | QueryException | PDOException | \Throwable | \Exception $err){
+                dd($err);
+                DB::rollBack();
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Fail !',
+                    'message' => 'Internal Server Error !',
+                ]);
+            }
+        // END
+        
+        // RETURN
+            return redirect()->back()->with([
+                'status' => 'success',
+                'icon' => 'success',
+                'title' => 'success !',
+                'message' => 'Berhasil Create Data Matakuliah',
+            ]);
+        // END
     }
 
     /**
@@ -105,9 +157,19 @@ class MatakuliahController extends Controller
                 'id' => 'required',
                 'nama_matakuliah' => 'required',
                 'semester' => 'required|between:1,8',
+                'kode' => 'required',
                 'sks' => 'required|between:1,6',
-                'prodi' => 'required|Teknologi Informasi,'
+                'prodi' => 'required|in:Teknologi Informasi,Teknik Mesin,Teknik Sipil,Teknik Arsitektur'
             ]);
+
+            if($validator->fails()){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Validasi Gagal !',
+                    'message' => 'Validation Error',
+                ]);
+            }
         // ENG
 
         // MAIN LOGIC
@@ -117,13 +179,13 @@ class MatakuliahController extends Controller
                 $matakuliahs = Matakuliah::findOrFail($request->id)->update([
                     'nama_matakuliah' => $request->nama_matakuliah,
                     'semester' => $request->semester,
+                    'kode' => $request->kode,
                     'sks' => $request->sks,
                     'prodi' => $request->prodi
                 ]);
             
                 DB::commit();
             }catch(ModelNotFoundException | QueryException | PDOException | \Throwable | \Exception $err){
-                dd($err);
                 DB::rollBack();
                 return redirect()->back()->with([
                     'status' => 'fail',
@@ -150,8 +212,48 @@ class MatakuliahController extends Controller
      * @param  \App\Models\Matakuliah  $matakuliah
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Matakuliah $matakuliah)
+    public function destroy(Request $request)
     {
-        //
+        // SECURITY
+            $validator = Validator::make($request->all(),[
+                'id' => 'required',
+            ]);
+            
+            if($validator->fails()){
+                return redirect()->back()->with([
+                    'status' => 'error',
+                    'icon' => 'error',
+                    'title' => 'Fail !',
+                    'message' => 'Validation Error',
+                ]);
+            }
+        // END
+        
+        // MAIN LOGIC
+            try{
+                DB::beginTransaction();
+
+                Matakuliah::findOrFail($request->id)->delete();
+
+                DB::commit();
+            }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err) {
+                DB::rollBack();
+                return redirect()->back()->with([
+                    'status' => 'error',
+                    'icon' => 'error',
+                    'title' => 'Fail !',
+                    'message' => 'Internal Server Error',
+                ]);
+            }
+        // END
+        
+        // RETURN
+            return redirect()->back()->with([
+                'status' => 'success',
+                'icon' => 'success',
+                'title' => 'Success',
+                'message' => 'Berhasil Mengahapus Matakuliah',
+            ]);
+        // END
     }
 }
