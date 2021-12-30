@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MasterDataMahasiswaController;
 use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransaksiKrsController;
 use Illuminate\Support\Facades\Route;
 
@@ -77,6 +78,12 @@ Route::prefix('admin')->group(function(){
 
             Route::delete('masterdata/mahasiswa',[MasterDataMahasiswaController::class,'destroy'])->name('admin.mahasiswa.delete');
 
+        // END
+
+        // REPORT
+            Route::get('report/matakuliah',[ReportController::class,'indexMatakuliah'])->name('report.matakuliah');
+
+            Route::get('report/mahasiswa',[ReportController::class,'indexMahasiswa'])->name('report.mahasiswa');
         // END
     });
 });

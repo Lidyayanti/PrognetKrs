@@ -249,7 +249,7 @@
           </li>
         <li class="nav-header">Report</li>
           <li class="nav-item">
-              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('report=matakuliah')">
+              <a href="{{ Route('report.matakuliah') }}" class="nav-link @yield('report-matakuliah')">
                 <i class="fas fa-flag-checkered"></i>
                 <p>
                   Report Matakuliah
@@ -257,7 +257,7 @@
               </a>
           </li>
           <li class="nav-item">
-              <a href="{{ Route('admin.matakuliah.index') }}" class="nav-link @yield('report-mahasiswa')">
+              <a href="{{ Route('report.mahasiswa') }}" class="nav-link @yield('report-mahasiswa')">
                 <i class="fas fa-flag-checkered"></i>
                 <p>
                   Report Mahasiswa
@@ -353,7 +353,7 @@
 <script src="{{ asset('vendor/adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/plugins/jszip/jszip.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('vendor/adminlte/plugins/pdfmake/vfs_fonts.sj') }}"></script>
+<script src="{{ asset('vendor/adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>

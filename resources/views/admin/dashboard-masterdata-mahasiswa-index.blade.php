@@ -21,6 +21,7 @@
                     <div class="form-group">
                             <label for="exampleFormControlSelect1">SEMESTER</label>
                             <select name="semester" class="form-control" id="semester">
+                                <option value="all" @if($semester == "all") selected @endif>all</option>
                                 <option value="1" @if($semester == 1) selected @endif>1</option>
                                 <option value="2" @if($semester == 2) selected @endif>2</option>
                                 <option value="3" @if($semester == 3) selected @endif>3</option>
