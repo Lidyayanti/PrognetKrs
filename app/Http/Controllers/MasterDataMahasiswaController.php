@@ -181,7 +181,6 @@ class MasterDataMahasiswaController extends Controller
     public function update(Request $request)
     {
         // SECURITY
-        dd($request->all());
             $validator = Validator::make($request->all(),[
                 'id' => 'required|numeric',
                 'nim' => 'required|numeric',
@@ -193,7 +192,7 @@ class MasterDataMahasiswaController extends Controller
                 'password' => 'nullable|same:password_confirmation',
                 'password_confirmation' => 'nullable|same:password',
                 'program_studi' => 'required',
-                'angkatan' => 'required|min:1900|max:2018',
+                'angkatan' => 'required|numeric|between:1990,3000',
                 'foto_mahasiswa' => 'nullable',
             ]);
             
@@ -211,13 +210,16 @@ class MasterDataMahasiswaController extends Controller
         // MAIN LOGIC
             try{
                 DB::beginTransaction();
+                
+                $mahasiswa = Mahasiswa::findOrFail($request->id);
 
-                if(isset($request->foto_mahasiswa)){
+                if($request->hasFile('foto_mahasiswa')){
                     $filename = uniqid()."jpg";
                     Storage::put($filename,base64_decode($request->foto_mahasiswa));
+                    $mahasiswa->update([
+                        'foto_mahasiswa' => $filename
+                    ]);
                 }
-
-                $mahasiswa = Mahasiswa::findOrFail($request->id);
 
                 $mahasiswa->update([
                     'id' => $request->id,
@@ -255,7 +257,7 @@ class MasterDataMahasiswaController extends Controller
                 'status' => 'success',
                 'icon' => 'success',
                 'title' => 'Success !',
-                'message' => 'Berhasil membuat mahasiswa baru',
+                'message' => 'Berhasil update data mahasiswa',
             ]);
         // END
     }

@@ -55,22 +55,6 @@
         </div>
     </div>
 </div>
-<form action="{{ Route('admin.mahasiswa.update') }}" method="POST" id="form_update">
-    @csrf
-    @method('put')
-    <input type="hidden" name='id' id="form_update_id" />
-    <input type="hidden" name='nim' id="form_update_nim" />
-    <input type="hidden" name='nama' id="form_update_nama" />
-    <input type="hidden" name='alamat' id="form_update_alamat" />
-    <input type="hidden" name='semester' id="form_update_semester" />
-    <input type="hidden" name='telepon' id="form_update_telepon" />
-    <input type="hidden" name='email' id="form_update_email" />
-    <input type="hidden" name='password' id="form_update_password" />
-    <input type="hidden" name='password_confirmation' id="form_update_password_confirmation" />
-    <input type="hidden" name='program_studi' id="form_update_program_studi" />
-    <input type="hidden" name='angkatan' id="form_update_angkatan" />
-    <input type="hidden" name='foto_mahasiswa' id="form_update_foto_mahasiswa" />
-</form>
 @endsection
 
 @push('js')
@@ -124,12 +108,6 @@
     }
 
     async function showFormEdit(records){
-        const toBase64 = file => new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
 
         let mahasiswa = mahasiswas[records]
 
@@ -137,19 +115,22 @@
         title: 'Form Update Mahasiswa',
         width: '800px',
         html:
-            '<input type="hidden" id="nim" class="swal2-input w-50" value="'+mahasiswa.id+'">' +
+            '<form action="{{ Route('admin.mahasiswa.update') }}" method="POST" id="form_update_2" enctype="multipart/form-data">'+
+            '@csrf'+
+            '@method("PUT")'+
+            '<input name="id" type="hidden" id="nim" class="swal2-input w-50" value="'+mahasiswa.id+'">' +
             '<label class="w-25">NIM</label>'+
-            '<input id="nim" class="swal2-input w-50" value="'+mahasiswa.nim+'">' +
+            '<input name="nim" id="nim" class="swal2-input w-50" value="'+mahasiswa.nim+'">' +
 
             '<label class="w-25">NAMA</label>'+
-            '<input id="nama" class="swal2-input w-50" value="'+mahasiswa.nama+'">' +
+            '<input name="nama" id="nama" class="swal2-input w-50" value="'+mahasiswa.nama+'">' +
 
             '<label class="w-25">Semester</label>'+ 
-            '<select id="semester" class="swal2-input w-50">'+
+            '<select name="semester" id="semester" class="swal2-input w-50">'+
                 '<option value="all">All</option>'+
                 '<option value="1"'+( mahasiswa.semester == 1 ? "selected" : "" )+'>1</option>'+
-                '<option value="3"'+( mahasiswa.semester == 2 ? "selected" : "" )+'>3</option>'+
-                '<option value="2"'+( mahasiswa.semester == 3 ? "selected" : "" )+'>2</option>'+
+                '<option value="3"'+( mahasiswa.semester == 2 ? "selected" : "" )+'>2</option>'+
+                '<option value="2"'+( mahasiswa.semester == 3 ? "selected" : "" )+'>3</option>'+
                 '<option value="4"'+( mahasiswa.semester == 4 ? "selected" : "" )+'>4</option>'+
                 '<option value="5"'+( mahasiswa.semester == 5 ? "selected" : "" )+'>5</option>'+
                 '<option value="6"'+( mahasiswa.semester == 6 ? "selected" : "" )+'>6</option>'+
@@ -158,32 +139,33 @@
             '</select>'+
 
             '<label class="w-25">ALAMAT</label>'+
-            '<input id="alamat" class="swal2-input w-50" value="'+mahasiswa.alamat+'">' +
+            '<input name="alamat" id="alamat" class="swal2-input w-50" value="'+mahasiswa.alamat+'">' +
 
             '<label class="w-25">TELEPON</label>'+
-            '<input id="telepon" class="swal2-input w-50" value="'+mahasiswa.telepon+'">' +
+            '<input name="telepon" id="telepon" class="swal2-input w-50" value="'+mahasiswa.telepon+'">' +
 
             '<label class="w-25">EMAIL</label>'+
-            '<input id="email" class="swal2-input w-50" value="'+mahasiswa.email+'">' +
+            '<input name="email" id="email" class="swal2-input w-50" value="'+mahasiswa.email+'">' +
 
             '<label class="w-25">PASSWORD</label>'+
-            '<input id="password" autocomplete="new-password"  type="password" class="swal2-input w-50" value="">' +
+            '<input name="password" placeholder="isi apabila akan mengganti password" id="password" autocomplete="new-password"  type="password" class="swal2-input w-50 border border-warning" value="">' +
 
             '<label class="w-25">PASSWORD CONFIRMATION</label>'+
-            '<input id="password_confirmation" autocomplete="new-password"  type="password" class="swal2-input w-50" value="">' +
+            '<input name="password_confirmation" placeholder="isi apabila akan mengganti password" id="password_confirmation" autocomplete="new-password"  type="password" class="swal2-input w-50 border border-warning" value="">' +
 
             '<label class="w-25">PRODI</label>'+
-            '<select id="prodi" class="swal2-input w-50">'+
+            '<select name="program_studi" id="prodi" class="swal2-input w-50">'+
             '<option value="Teknologi Informasi" '+(mahasiswa.prodi == "Teknologi Informasi" ? " selected " : "")+'>Teknologi Informasi</option>'+
             '<option value="Teknik Mesin"'+(mahasiswa.prodi == "Teknik Mesin" ? " selected " : "")+'>Teknik Mesin</option>'+
             '<option value="Teknik Sipil"'+(mahasiswa.prodi == "Teknik Sipil" ? " selected " : "")+'>Teknik Sipil</option>'+
             '<option value="Teknik Arsitektur"'+(mahasiswa.prodi == "Teknik Arsitektur" ? " selected " : "")+'>Teknik Arsitektur</option></select>'+
             
-            '<label class="w-25">ANKATAN</label>'+
-            '<input type="number" id="angkatan" class="swal2-input w-50" value="'+mahasiswa.angkatan+'">'+
+            '<label class="w-25">ANGKATAN</label>'+
+            '<input name="angkatan" type="number" id="angkatan" class="swal2-input w-50" value="'+mahasiswa.angkatan+'">'+
 
             '<label class="w-25">FOTO</label>'+
-            '<input type="file" id="foto" class="swal2-file w-50" value="">',
+            '<input name="foto_mahasiswa" type="file" id="foto" class="swal2-file w-50" value="">'+
+            '</form>',
         focusConfirm: false,
         preConfirm: () => {
             return {
@@ -203,25 +185,92 @@
         });
     
         if (formValues) {
-            var reader = new FileReader();
 
-            reader.readAsDataURL(formValues.foto[0]);
+            $("#form_update_2").submit()
+            
+        }
+    }
 
-            const file = formValues.foto[0];
-            console.log(formValues);
-            $('#form_update_id').val(formValues.id)
-            $('#form_update_nim').val(formValues.nim)
-            $('#form_update_nama').val(formValues.nama)
-            $('#form_update_alamat').val(formValues.alamat)
-            $('#form_update_semester').val(formValues.semester)
-            $('#form_update_telepon').val(formValues.telepon)
-            $('#form_update_email').val(formValues.email)
-            $('#form_update_password').val(formValues.password)
-            $('#form_update_password_confirmation').val(formValues.password_confirmation)
-            $('#form_update_program_studi').val(formValues.program_studi)
-            $('#form_update_angkatan').val(formValues.angkatan)
-            $('#form_update_foto_mahasiswa').val(await toBase64(formValues.foto[0]));
-            $("#form_update").submit()
+    async function showFormEdit(records){
+
+        let mahasiswa = mahasiswas[records]
+
+        const { value: formValues } = await Swal.fire({
+        title: 'Form Update Mahasiswa',
+        width: '800px',
+        html:
+            '<form action="{{ Route('admin.mahasiswa.update') }}" method="POST" id="form_update_2" enctype="multipart/form-data">'+
+            '@csrf'+
+            '@method("PUT")'+
+            '<input name="id" type="hidden" id="nim" class="swal2-input w-50" value="'+mahasiswa.id+'">' +
+            '<label class="w-25">NIM</label>'+
+            '<input name="nim" id="nim" class="swal2-input w-50" value="'+mahasiswa.nim+'">' +
+
+            '<label class="w-25">NAMA</label>'+
+            '<input name="nama" id="nama" class="swal2-input w-50" value="'+mahasiswa.nama+'">' +
+
+            '<label class="w-25">Semester</label>'+ 
+            '<select name="semester" id="semester" class="swal2-input w-50">'+
+                '<option value="all">All</option>'+
+                '<option value="1"'+( mahasiswa.semester == 1 ? "selected" : "" )+'>1</option>'+
+                '<option value="3"'+( mahasiswa.semester == 2 ? "selected" : "" )+'>2</option>'+
+                '<option value="2"'+( mahasiswa.semester == 3 ? "selected" : "" )+'>3</option>'+
+                '<option value="4"'+( mahasiswa.semester == 4 ? "selected" : "" )+'>4</option>'+
+                '<option value="5"'+( mahasiswa.semester == 5 ? "selected" : "" )+'>5</option>'+
+                '<option value="6"'+( mahasiswa.semester == 6 ? "selected" : "" )+'>6</option>'+
+                '<option value="7"'+( mahasiswa.semester == 7 ? "selected" : "" )+'>7</option>'+
+                '<option value="8"'+( mahasiswa.semester == 8 ? "selected" : "" )+'>8</option>'+
+            '</select>'+
+
+            '<label class="w-25">ALAMAT</label>'+
+            '<input name="alamat" id="alamat" class="swal2-input w-50" value="'+mahasiswa.alamat+'">' +
+
+            '<label class="w-25">TELEPON</label>'+
+            '<input name="telepon" id="telepon" class="swal2-input w-50" value="'+mahasiswa.telepon+'">' +
+
+            '<label class="w-25">EMAIL</label>'+
+            '<input name="email" id="email" class="swal2-input w-50" value="'+mahasiswa.email+'">' +
+
+            '<label class="w-25">PASSWORD</label>'+
+            '<input name="password" placeholder="isi apabila akan mengganti password" id="password" autocomplete="new-password"  type="password" class="swal2-input w-50 border border-warning" value="">' +
+
+            '<label class="w-25">PASSWORD CONFIRMATION</label>'+
+            '<input name="password_confirmation" placeholder="isi apabila akan mengganti password" id="password_confirmation" autocomplete="new-password"  type="password" class="swal2-input w-50 border border-warning" value="">' +
+
+            '<label class="w-25">PRODI</label>'+
+            '<select name="program_studi" id="prodi" class="swal2-input w-50">'+
+            '<option value="Teknologi Informasi" '+(mahasiswa.prodi == "Teknologi Informasi" ? " selected " : "")+'>Teknologi Informasi</option>'+
+            '<option value="Teknik Mesin"'+(mahasiswa.prodi == "Teknik Mesin" ? " selected " : "")+'>Teknik Mesin</option>'+
+            '<option value="Teknik Sipil"'+(mahasiswa.prodi == "Teknik Sipil" ? " selected " : "")+'>Teknik Sipil</option>'+
+            '<option value="Teknik Arsitektur"'+(mahasiswa.prodi == "Teknik Arsitektur" ? " selected " : "")+'>Teknik Arsitektur</option></select>'+
+            
+            '<label class="w-25">ANGKATAN</label>'+
+            '<input name="angkatan" type="number" id="angkatan" class="swal2-input w-50" value="'+mahasiswa.angkatan+'">'+
+
+            '<label class="w-25">FOTO</label>'+
+            '<input name="foto_mahasiswa" type="file" id="foto" class="swal2-file w-50" value="">'+
+            '</form>',
+        focusConfirm: false,
+        preConfirm: () => {
+            return {
+                id : mahasiswa.id,
+                nim : document.getElementById('nim').value,
+                nama : document.getElementById('nama').value,
+                semester : document.getElementById('semester').value,
+                alamat : document.getElementById('alamat').value,
+                telepon : document.getElementById('telepon').value,
+                email : document.getElementById('email').value,
+                password : document.getElementById('password').value,
+                password_confirmation : document.getElementById('password_confirmation').value,
+                angkatan : document.getElementById('angkatan').value,
+                foto : document.getElementById('foto').files,
+            }
+        }
+        });
+    
+        if (formValues) {
+
+            $("#form_update_2").submit()
             
         }
     }
