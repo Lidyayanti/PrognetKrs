@@ -15,7 +15,7 @@
             <h5 class="bg-primary mx-n2 mt-n2 p-2">PILIHAN MATAKULIAH</h5>
             <div class="row">
                 <div class="col-12 my-2">
-                    <button class="btn btn-sm btn-success" onclick="showFormStore()">CREATE NEW MAHASISWA</button>
+                    <button class="btn btn-sm btn-success" onclick="showFormCreate()">CREATE NEW MAHASISWA</button>
                 </div>
                 <div class="col-12 col-lg-6">
                     <div class="form-group">
@@ -75,24 +75,29 @@
                 { title: "email", data: "email" },
                 { title: "Action", data : "id" , render : function (data, type, row, meta) {
                     return '<button onclick="showFormEdit('+meta.row+')" class="btn btn-sm btn-primary mr-1">EDIT</button>'+
-                           '<button onclick="submitWarning('+data+')" class="btn btn-sm btn-danger mr-1">DELETE</button>';
+                           '<button onclick="submitWarning('+data+')" class="btn btn-sm btn-danger mr-1">DELETE</button>'+
+                           '<form action="{{ Route('admin.mahasiswa.delete') }}" method="POST" class="d-none" id="form_delete_'+data+'">'+
+                           '@csrf'+
+                           '@method("DELETE")'+
+                           '<input value="'+data+'" name="id" type="hidden" >'
+                           '</form>';
                 }},
             ]
         } );
     } );
 
-    function submitWarning(){
+    function submitWarning(index){
         Swal.fire({
             title: '<strong>PERINGATAN !</strong>',
             icon: 'info',
             html:
-                'KRS ini akan dihapus dan tidak dapat <b>DIPULIHKAN</b>, ' +
-                'Admin wajib memberikan informasi kepada mahasiswa terkait ',
+                'Data mahasiswa ini akan dihapus dan tidak dapat <b>DIPULIHKAN</b>, ' +
+                'transaksi KRS juga secara otomatis akan terhapus dari sistem, yakin untuk menghapus ?',
             showCloseButton: true,
             showCancelButton: true,
             focusConfirm: false,
             confirmButtonText:
-                'Kirim!',
+                'Hapus !',
             confirmButtonAriaLabel: 'Thumbs up, great!',
             cancelButtonText:
                 'Batal',
@@ -100,9 +105,9 @@
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                document.getElementById("form_delete").submit();
+                document.getElementById("form_delete_"+index).submit();
             } else if (result.isDenied) {
-                Swal.fire('Check SKS anda kembali', '', 'info');
+                
             }
         })
     }
@@ -118,6 +123,7 @@
             '<form action="{{ Route('admin.mahasiswa.update') }}" method="POST" id="form_update_2" enctype="multipart/form-data">'+
             '@csrf'+
             '@method("PUT")'+
+            '<a target="__blank" href="{{ asset('storage/foto_mahasiswa/') }}/'+mahasiswa.foto_mahasiswa+'"><div><img class="img-thumbnail rounded-circle" style="width:150px;height:150px;object-fit:cover;" src="{{ asset('storage/foto_mahasiswa/') }}/'+mahasiswa.foto_mahasiswa+'"></div></a>'+
             '<input name="id" type="hidden" id="nim" class="swal2-input w-50" value="'+mahasiswa.id+'">' +
             '<label class="w-25">NIM</label>'+
             '<input name="nim" id="nim" class="swal2-input w-50" value="'+mahasiswa.nim+'">' +
@@ -127,10 +133,10 @@
 
             '<label class="w-25">Semester</label>'+ 
             '<select name="semester" id="semester" class="swal2-input w-50">'+
-                '<option value="all">All</option>'+
+                '<option value="">Pilih Semester</option>'+
                 '<option value="1"'+( mahasiswa.semester == 1 ? "selected" : "" )+'>1</option>'+
-                '<option value="3"'+( mahasiswa.semester == 2 ? "selected" : "" )+'>2</option>'+
-                '<option value="2"'+( mahasiswa.semester == 3 ? "selected" : "" )+'>3</option>'+
+                '<option value="2"'+( mahasiswa.semester == 2 ? "selected" : "" )+'>2</option>'+
+                '<option value="3"'+( mahasiswa.semester == 3 ? "selected" : "" )+'>3</option>'+
                 '<option value="4"'+( mahasiswa.semester == 4 ? "selected" : "" )+'>4</option>'+
                 '<option value="5"'+( mahasiswa.semester == 5 ? "selected" : "" )+'>5</option>'+
                 '<option value="6"'+( mahasiswa.semester == 6 ? "selected" : "" )+'>6</option>'+
@@ -191,45 +197,43 @@
         }
     }
 
-    async function showFormEdit(records){
-
-        let mahasiswa = mahasiswas[records]
+    async function showFormCreate(){
 
         const { value: formValues } = await Swal.fire({
-        title: 'Form Update Mahasiswa',
+        title: 'Form Create Mahasiswa',
         width: '800px',
         html:
-            '<form action="{{ Route('admin.mahasiswa.update') }}" method="POST" id="form_update_2" enctype="multipart/form-data">'+
+            '<form action="{{ Route('admin.mahasiswa.store') }}" method="POST" id="form_create" enctype="multipart/form-data">'+
             '@csrf'+
-            '@method("PUT")'+
-            '<input name="id" type="hidden" id="nim" class="swal2-input w-50" value="'+mahasiswa.id+'">' +
+            '@method("POST")'+
+            '<input name="id" type="hidden" id="nim" class="swal2-input w-50">' +
             '<label class="w-25">NIM</label>'+
-            '<input name="nim" id="nim" class="swal2-input w-50" value="'+mahasiswa.nim+'">' +
+            '<input name="nim" id="nim" class="swal2-input w-50">' +
 
             '<label class="w-25">NAMA</label>'+
-            '<input name="nama" id="nama" class="swal2-input w-50" value="'+mahasiswa.nama+'">' +
+            '<input name="nama" id="nama" class="swal2-input w-50">' +
 
             '<label class="w-25">Semester</label>'+ 
             '<select name="semester" id="semester" class="swal2-input w-50">'+
-                '<option value="all">All</option>'+
-                '<option value="1"'+( mahasiswa.semester == 1 ? "selected" : "" )+'>1</option>'+
-                '<option value="3"'+( mahasiswa.semester == 2 ? "selected" : "" )+'>2</option>'+
-                '<option value="2"'+( mahasiswa.semester == 3 ? "selected" : "" )+'>3</option>'+
-                '<option value="4"'+( mahasiswa.semester == 4 ? "selected" : "" )+'>4</option>'+
-                '<option value="5"'+( mahasiswa.semester == 5 ? "selected" : "" )+'>5</option>'+
-                '<option value="6"'+( mahasiswa.semester == 6 ? "selected" : "" )+'>6</option>'+
-                '<option value="7"'+( mahasiswa.semester == 7 ? "selected" : "" )+'>7</option>'+
-                '<option value="8"'+( mahasiswa.semester == 8 ? "selected" : "" )+'>8</option>'+
+                '<option value="all">Pilih Semester</option>'+
+                '<option value="1">1</option>'+
+                '<option value="3">2</option>'+
+                '<option value="2">3</option>'+
+                '<option value="4">4</option>'+
+                '<option value="5">5</option>'+
+                '<option value="6">6</option>'+
+                '<option value="7">7</option>'+
+                '<option value="8">8</option>'+
             '</select>'+
 
             '<label class="w-25">ALAMAT</label>'+
-            '<input name="alamat" id="alamat" class="swal2-input w-50" value="'+mahasiswa.alamat+'">' +
+            '<input name="alamat" id="alamat" class="swal2-input w-50">' +
 
             '<label class="w-25">TELEPON</label>'+
-            '<input name="telepon" id="telepon" class="swal2-input w-50" value="'+mahasiswa.telepon+'">' +
+            '<input name="telepon" id="telepon" class="swal2-input w-50">' +
 
             '<label class="w-25">EMAIL</label>'+
-            '<input name="email" id="email" class="swal2-input w-50" value="'+mahasiswa.email+'">' +
+            '<input name="email" id="email" class="swal2-input w-50">' +
 
             '<label class="w-25">PASSWORD</label>'+
             '<input name="password" placeholder="isi apabila akan mengganti password" id="password" autocomplete="new-password"  type="password" class="swal2-input w-50 border border-warning" value="">' +
@@ -239,13 +243,14 @@
 
             '<label class="w-25">PRODI</label>'+
             '<select name="program_studi" id="prodi" class="swal2-input w-50">'+
-            '<option value="Teknologi Informasi" '+(mahasiswa.prodi == "Teknologi Informasi" ? " selected " : "")+'>Teknologi Informasi</option>'+
-            '<option value="Teknik Mesin"'+(mahasiswa.prodi == "Teknik Mesin" ? " selected " : "")+'>Teknik Mesin</option>'+
-            '<option value="Teknik Sipil"'+(mahasiswa.prodi == "Teknik Sipil" ? " selected " : "")+'>Teknik Sipil</option>'+
-            '<option value="Teknik Arsitektur"'+(mahasiswa.prodi == "Teknik Arsitektur" ? " selected " : "")+'>Teknik Arsitektur</option></select>'+
+            '<option value="">Pilih Prodi</option>'+
+            '<option value="Teknologi Informasi" >Teknologi Informasi</option>'+
+            '<option value="Teknik Mesin">Teknik Mesin</option>'+
+            '<option value="Teknik Sipil">Teknik Sipil</option>'+
+            '<option value="Teknik Arsitektur">Teknik Arsitektur</option></select>'+
             
             '<label class="w-25">ANGKATAN</label>'+
-            '<input name="angkatan" type="number" id="angkatan" class="swal2-input w-50" value="'+mahasiswa.angkatan+'">'+
+            '<input name="angkatan" type="number" id="angkatan" class="swal2-input w-50">'+
 
             '<label class="w-25">FOTO</label>'+
             '<input name="foto_mahasiswa" type="file" id="foto" class="swal2-file w-50" value="">'+
@@ -253,7 +258,6 @@
         focusConfirm: false,
         preConfirm: () => {
             return {
-                id : mahasiswa.id,
                 nim : document.getElementById('nim').value,
                 nama : document.getElementById('nama').value,
                 semester : document.getElementById('semester').value,
@@ -270,7 +274,7 @@
     
         if (formValues) {
 
-            $("#form_update_2").submit()
+            $("#form_create").submit()
             
         }
     }

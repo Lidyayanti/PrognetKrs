@@ -74,6 +74,9 @@ Route::prefix('admin')->group(function(){
             Route::post('masterdata/mahasiswa',[MasterDataMahasiswaController::class,'store'])->name('admin.mahasiswa.store');
 
             Route::put('masterdata/mahasiswa',[MasterDataMahasiswaController::class,'update'])->name('admin.mahasiswa.update');
+
+            Route::delete('masterdata/mahasiswa',[MasterDataMahasiswaController::class,'destroy'])->name('admin.mahasiswa.delete');
+
         // END
     });
 });

@@ -95,8 +95,8 @@ class MasterDataMahasiswaController extends Controller
                 'password' => 'required|same:password_confirmation',
                 'password_confirmation' => 'required|same:password',
                 'program_studi' => 'required',
-                'angkatan' => 'required|min:1900|max:2018',
-                'foto_mahasiswa' => 'nullable|file',
+                'angkatan' => 'required|numeric|between:1990,2999',
+                'foto_mahasiswa' => 'nullable|mimes:jpeg,jpg,png,gif',
             ]);
             
             if($validator->fails()){
@@ -113,6 +113,12 @@ class MasterDataMahasiswaController extends Controller
             try{
                 DB::beginTransaction();
 
+                $filename = 'default.jpg';
+
+                if($request->hasFile('foto_mahasiswa')){
+                    $filename = basename($request->file('foto_mahasiswa')->store('public/foto_mahasiswa'));
+                }
+
                 Mahasiswa::create([
                     'nim' => $request->nim,
                     'nama' => $request->nama,
@@ -120,6 +126,7 @@ class MasterDataMahasiswaController extends Controller
                     'semester' => $request->semester,
                     'telepon' => $request->telepon,
                     'email' => $request->email,
+                    'foto_mahasiswa' => $filename,
                     'password' => $request->password,
                     'password_confirmation' => $request->password_confirmation,
                     'program_studi' => $request->program_studi,
@@ -129,7 +136,7 @@ class MasterDataMahasiswaController extends Controller
                 DB::commit();
             }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err) {
                 DB::rollBack();
-                
+
                 return redirect()->back()->with([
                     'status' => 'error',
                     'icon' => 'error',
@@ -197,7 +204,6 @@ class MasterDataMahasiswaController extends Controller
             ]);
             
             if($validator->fails()){
-                dd($validator->errors());
                 return redirect()->back()->with([
                     'status' => 'error',
                     'icon' => 'error',
@@ -214,8 +220,12 @@ class MasterDataMahasiswaController extends Controller
                 $mahasiswa = Mahasiswa::findOrFail($request->id);
 
                 if($request->hasFile('foto_mahasiswa')){
-                    $filename = uniqid()."jpg";
-                    Storage::put($filename,base64_decode($request->foto_mahasiswa));
+                    $filename = basename($request->file('foto_mahasiswa')->store("public/foto_mahasiswa"));
+
+                    if($mahasiswa->foto_mahasiswa != 'default.jpg'){
+                        Storage::delete("public/foto_mahasiswa".$mahasiswa->foto_mahasiswa);
+                    }
+
                     $mahasiswa->update([
                         'foto_mahasiswa' => $filename
                     ]);
@@ -268,8 +278,48 @@ class MasterDataMahasiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        // SECURITY
+            $validator = Validator::make($request->all(),[
+                'id' => 'required',
+            ]);
+            
+            if($validator->fails()){
+                return redirect()->back()->with([
+                    'status' => 'error',
+                    'icon' => 'error',
+                    'title' => 'Error !',
+                    'message' => 'Validasi Gagal !',
+                ]);
+            }
+        // END
+        
+        // MAIN LOGIC
+            try{
+                DB::beginTransaction();
+
+                Mahasiswa::findOrFail($request->id)->delete();
+
+                DB::commit();
+            }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err) {
+                DB::rollBack();
+                return redirect()->back()->with([
+                    'status' => 'error',
+                    'icon' => 'error',
+                    'title' => 'Internal Server Error',
+                    'message' => 'terjadi kesalahan pada sistem',
+                ]);
+            }
+        // END
+        
+        // RETURN
+            return redirect()->back()->with([
+                'status' => 'success',
+                'icon' => 'success',
+                'title' => 'Success !',
+                'message' => 'Berhasil menghapus data mahasiswa',
+            ]);
+        // END
     }
 }
