@@ -4,7 +4,9 @@
 @section('title','Mahasiswa')
 
 @section('breadcrumb')
-<li class="breadcrumb-item">Mahasiswa</li>
+<li class="breadcrumb-item">Transaksi</li>
+<li class="breadcrumb-item">Transaksi KRS</li>
+<li class="breadcrumb-item">Transaksi KRS Detail</li>
 @endsection
 
 @section('content')
@@ -13,6 +15,22 @@
         <div class="col-12 card">
             <h5 class="bg-primary mx-n2 mt-n2 p-2">PILIHAN MATAKULIAH</h5>
             <div class="row">
+                <div class="col-12 mb-4">
+                    <table class="table-sm w-50 table-primary">
+                        <tr>
+                            <th>Nama Mahasiswa</th>
+                            <td>: {{ isset($mahasiswa->nama) ? $mahasiswa->nama : "Mahasiswa" }}</td>
+                        </tr>
+                        <tr>
+                            <th>NIM</th>
+                            <td>: {{ isset($mahasiswa->nim) ? $mahasiswa->nim : "NIM" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Program Studi</th>
+                            <td>: {{ isset($mahasiswa->program_studi) ? $mahasiswa->program_studi : "NIM" }}</td>
+                        </tr>
+                    </table>
+                </div>
                 <div class="col-12 col-lg-4 mb-4">
                     <div class="form-group">
                             <label for="exampleFormControlSelect1">SEMESTER</label>

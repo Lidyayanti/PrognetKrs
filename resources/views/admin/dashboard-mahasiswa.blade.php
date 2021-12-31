@@ -4,7 +4,8 @@
 @section('title','Mahasiswa')
 
 @section('breadcrumb')
-<li class="breadcrumb-item">Mahasiswa</li>
+<li class="breadcrumb-item">Transaksi</li>
+<li class="breadcrumb-item">Transaksi KRS</li>
 @endsection
 
 @section('content')

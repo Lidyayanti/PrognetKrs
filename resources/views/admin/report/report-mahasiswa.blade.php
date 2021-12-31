@@ -98,12 +98,12 @@
 
     
     function filterMahasiswa(){
-        let semester = $('#selectSemester').val();
         let prodi = $('#selectProdi').val();
+        let semester = $('#selectSemester').val();
         let angkatan = $('#selectAngkatan').val();
 
         console.log(semester,prodi);
-        window.location.href = "{{ Route('admin.matakuliah.index') }}"+"/"+prodi+"/"+semester;
+        window.location.href = "{{ Route('report.mahasiswa') }}"+"/"+prodi+"/"+semester+"/"+angkatan;
     }
 
 </script>

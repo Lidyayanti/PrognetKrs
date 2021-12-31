@@ -48,7 +48,7 @@ class ReportController extends Controller
                 }
 
                 if($status != "all"){
-                    $matakuliahs->where('status',$status);
+                    $matakuliahs->where('status_mk',$status);
                 }
 
                 $matakuliahs = $matakuliahs->withCount(['TransaksiKrs'])->get();
@@ -100,7 +100,7 @@ class ReportController extends Controller
                 }
 
                 if($angkatan != "all"){
-                    $mahasiswas->where('angakatan',$angkatan);
+                    $mahasiswas->where('angkatan',$angkatan);
                 }
 
                 $mahasiswas = $mahasiswas->withCount(['TransaksiKrs'])->get();

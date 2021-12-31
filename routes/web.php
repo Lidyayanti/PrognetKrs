@@ -81,9 +81,9 @@ Route::prefix('admin')->group(function(){
         // END
 
         // REPORT
-            Route::get('report/matakuliah',[ReportController::class,'indexMatakuliah'])->name('report.matakuliah');
+            Route::get('report/matakuliah/{prodi?}/{semester?}/{status?}',[ReportController::class,'indexMatakuliah'])->name('report.matakuliah');
 
-            Route::get('report/mahasiswa',[ReportController::class,'indexMahasiswa'])->name('report.mahasiswa');
+            Route::get('report/mahasiswa/{prodi?}/{semester?}/{status?}',[ReportController::class,'indexMahasiswa'])->name('report.mahasiswa');
         // END
     });
 });

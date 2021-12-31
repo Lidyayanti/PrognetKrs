@@ -87,7 +87,7 @@
                 <div class="col-lg-4 col-12">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1" >Status Matkul</label>
-                            <select class="form-control" id="selectSemester">
+                            <select id="status_mk" class="form-control" id="selectSemester">
                                 <option value="all">All</option>
                                 <option value="Wajib" @if( $status == "Wajib" ) selected @endif>Wajib</option>
                                 <option value="Pilihan" @if( $status == "Pilihan" ) selected @endif>Pilihan</option>
@@ -151,9 +151,10 @@
     function filterMatakuliah(){
         let semester = $('#selectSemester').val();
         let prodi = $('#selectProdi').val();
+        let status_mk = $('#status_mk').val();
 
         console.log(semester,prodi);
-        window.location.href = "{{ Route('admin.matakuliah.index') }}"+"/"+prodi+"/"+semester;
+        window.location.href = "{{ Route('report.matakuliah') }}"+"/"+prodi+"/"+semester+"/"+status_mk;
     }
 
 </script>
