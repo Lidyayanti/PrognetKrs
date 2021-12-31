@@ -52,6 +52,17 @@
                 </div>
             </div>
             <table id="tableMahasiswa" class="stripe display" style="width:100%"></table>
+            <div class="row">
+            <form action="{{ route('admin.dashboard.mahasiswa.tolak') }}" id="form_submit" class="d-none" method="POST">
+                @csrf
+                @method('POST')
+                <input type="hidden" name="mahasiswa_id" value="{{ $mahasiswa->id }}">
+                <input type="hidden" name="semester" value="{{ $semester }}">
+            </form>
+            <div class="col-12 text-center mt-2">
+                <button type="button" onclick="submitWarning()" class="btn btn-sm btn-danger m-2">HAPUS KRS</button>
+            </div>
+            </div>
         </div>
     </div>
 </div>
@@ -91,7 +102,7 @@
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                document.getElementById("form_delete").submit();
+                document.getElementById("form_submit").submit();
             } else if (result.isDenied) {
                 Swal.fire('Check SKS anda kembali', '', 'info');
             }

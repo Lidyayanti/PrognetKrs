@@ -7,6 +7,8 @@ use App\Http\Controllers\MasterDataMahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransaksiKrsController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\MahasiswaMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,14 +24,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard.welcome');
-});
+})->name('welcome.page');
 
 Route::prefix('user')->group(function(){
     Route::post('login',[AuthController::class,'login'])->name('user.login');
     Route::post('register',[AuthController::class,'register'])->name('user.register');
+    Route::post('logout',[AuthController::class,'logoutMahasiswa'])->name('user.logout');
 });
 
-Route::prefix('mahasiswa')->group(function(){
+Route::prefix('mahasiswa')->middleware(MahasiswaMiddleware::class)->group(function(){
 
     Route::get('dashboard',[MahasiswaController::class,'dashboard'])->name('mahasiswa.dashboard');
     Route::get('profile',[MahasiswaController::class,'index'])->name('mahasiswa.profile');
@@ -50,7 +53,7 @@ Route::prefix('admin')->group(function(){
     Route::get('login',[AuthController::class,'loginAdmin'])->name('admin.login');
     Route::post('login',[AuthController::class,'postLoginAdmin'])->name('admin.post.login');
 
-    Route::prefix('dashboard')->group(function(){
+    Route::prefix('dashboard')->middleware(AdminMiddleware::class)->group(function(){
         Route::get('mahasiswa/{semester?}',[AdminController::class,'showMahasiswas'])->name('admin.dashboard.mahasiswa');
         Route::get('mahasiswa/detail/{semester?}/{id?}',[AdminController::class,'showMahasiswaDetail'])->name('admin.dashboard.mahasiswa.detail');
         Route::post('mahasiswa/perbarui',[AdminController::class,'perbaruiMahasiswa'])->name('admin.dashboard.mahasiswa.perbarui');
@@ -84,6 +87,10 @@ Route::prefix('admin')->group(function(){
             Route::get('report/matakuliah/{prodi?}/{semester?}/{status?}',[ReportController::class,'indexMatakuliah'])->name('report.matakuliah');
 
             Route::get('report/mahasiswa/{prodi?}/{semester?}/{status?}',[ReportController::class,'indexMahasiswa'])->name('report.mahasiswa');
+        // END
+
+        // LOG OUT
+            Route::post('logout',[AuthController::class,'logoutAdmin'])->name('admin.logout');
         // END
     });
 });

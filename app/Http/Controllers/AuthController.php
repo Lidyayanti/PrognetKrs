@@ -172,4 +172,28 @@ class AuthController extends Controller
         ]);
         // END
     }
+
+    public function logoutAdmin(){
+
+        Auth::guard('admin')->logout();
+        
+        return redirect()->route('admin.login')->with([
+            'status' => 'success',
+            'icon' => 'success',
+            'title' => 'Berhasil Logout',
+            'message' => 'Berhasil Logout dari sistem Admin'
+        ]);
+    }
+
+    public function logoutMahasiswa(){
+
+        Auth::logout();
+        
+        return redirect()->route('welcome.page')->with([
+            'status' => 'success',
+            'icon' => 'success',
+            'title' => 'Berhasil Logout',
+            'message' => 'Berhasil Logout dari sistem'
+        ]);
+    }
 }

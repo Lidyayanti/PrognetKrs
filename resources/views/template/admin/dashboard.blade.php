@@ -264,6 +264,17 @@
                 </p>
               </a>
           </li>
+        <li class="nav-header text-danger">Sistem</li>
+        <form action="{{ Route('admin.logout') }}" method="POST" class="d-none" id="form-logout-admin">
+        @csrf
+        @method('POST')
+        </form>
+        <button form="form-logout-admin" class="text-danger btn text-left nav-link">
+              <i class="fas fa-power-off"></i>
+              <p>
+                Log Out
+              </p>
+        </button>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
