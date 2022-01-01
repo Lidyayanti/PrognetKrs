@@ -4,7 +4,8 @@
 @section('title','Mahasiswa')
 
 @section('breadcrumb')
-<li class="breadcrumb-item">Mahasiswa</li>
+<li class="breadcrumb-item">Transaksi</li>
+<li class="breadcrumb-item">Transaksi KRS</li>
 @endsection
 
 @section('content')
@@ -35,9 +36,6 @@
                 </div>
             </div>
             <table id="tableMahasiswa" class="stripe display m-3" style="width:100%"></table>
-        </div>
-        <div class="col-12 p-1 text-center">
-            <button type="submit" onclick="submitWarning()" class="btn-md px-5 btn-primary">KIRIM</butt>
         </div>
     </div>
 </div>

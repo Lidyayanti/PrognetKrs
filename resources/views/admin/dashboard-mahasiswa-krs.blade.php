@@ -4,7 +4,9 @@
 @section('title','Mahasiswa')
 
 @section('breadcrumb')
-<li class="breadcrumb-item">Mahasiswa</li>
+<li class="breadcrumb-item">Transaksi</li>
+<li class="breadcrumb-item">Transaksi KRS</li>
+<li class="breadcrumb-item">Transaksi KRS Detail</li>
 @endsection
 
 @section('content')
@@ -13,9 +15,25 @@
         <div class="col-12 card">
             <h5 class="bg-primary mx-n2 mt-n2 p-2">PILIHAN MATAKULIAH</h5>
             <div class="row">
+                <div class="col-12 mb-4">
+                    <table class="table-sm w-50 table-primary">
+                        <tr>
+                            <th>Nama Mahasiswa</th>
+                            <td>: {{ isset($mahasiswa->nama) ? $mahasiswa->nama : "Mahasiswa" }}</td>
+                        </tr>
+                        <tr>
+                            <th>NIM</th>
+                            <td>: {{ isset($mahasiswa->nim) ? $mahasiswa->nim : "NIM" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Program Studi</th>
+                            <td>: {{ isset($mahasiswa->program_studi) ? $mahasiswa->program_studi : "NIM" }}</td>
+                        </tr>
+                    </table>
+                </div>
                 <div class="col-12 col-lg-4 mb-4">
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">SEMESTER</label>
+                            <label for="exampleFormControlSelect1">SEMESTER</label>
                             <select name="semester" class="form-control" id="semester">
                                 <option value="1" @if($semester == 1) selected @endif>1</option>
                                 <option value="2" @if($semester == 2) selected @endif>2</option>
@@ -33,16 +51,18 @@
                     <button class="btn-sm" onclick="goToURL()">FILTER</button>
                 </div>
             </div>
-            <table id="tableMahasiswa" class="stripe display m-3" style="width:100%"></table>
-        </div>
-        <div class="col-12 p-1 text-center">
-            <button type="button" onclick="submitWarning()" class="btn-md px-5 btn-danger">HAPUS</butt>
-            <form action="{{ Route('admin.dashboard.mahasiswa.tolak') }}" method="post" id="form_delete">
+            <table id="tableMahasiswa" class="stripe display" style="width:100%"></table>
+            <div class="row">
+            <form action="{{ route('admin.dashboard.mahasiswa.tolak') }}" id="form_submit" class="d-none" method="POST">
                 @csrf
-                @method('post')
-                <input type="hidden" value="{{ $mahasiswa->id }}" name="mahasiswa_id">
-                <input type="hidden" value="{{ $semester }}" name="semester">
+                @method('POST')
+                <input type="hidden" name="mahasiswa_id" value="{{ $mahasiswa->id }}">
+                <input type="hidden" name="semester" value="{{ $semester }}">
             </form>
+            <div class="col-12 text-center mt-2">
+                <button type="button" onclick="submitWarning()" class="btn btn-sm btn-danger m-2">HAPUS KRS</button>
+            </div>
+            </div>
         </div>
     </div>
 </div>
@@ -59,17 +79,6 @@
                 { title: "SKS", data : "matakuliah.sks"},
                 { title: "Semester", data: "matakuliah.semester" },
                 { title: "Nilai Saat Ini", data: "nilai" },
-                { title: "Action", data : "id" , render : function (data, type, row, meta) {
-                    return '<select name="nilai['+data+']" class="form-control" id="exampleFormControlSelect1">'+
-                                '<option value=""></option>'+
-                                '<option value="A">A</option>'+
-                                '<option value="B">B</option>'+
-                                '<option value="C">C</option>'+
-                                '<option value="D">D</option>'+
-                                '<option value="E">E</option>'+
-                                '<option value="Tunda">TUNDA</option>'+
-                            '</select>';
-                }},
             ]
         } );
     } );
@@ -93,7 +102,7 @@
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                document.getElementById("form_delete").submit();
+                document.getElementById("form_submit").submit();
             } else if (result.isDenied) {
                 Swal.fire('Check SKS anda kembali', '', 'info');
             }

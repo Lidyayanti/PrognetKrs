@@ -95,9 +95,9 @@ class AdminController extends Controller
     }
 
     public function perbaruiMahasiswa(Request $request){
+        
         // SECURITY
             $validator = Validator::make($request->all(),[
-                'id' => 'required|numeric',
                 'nilai' => 'required|array',
             ]);
 
@@ -130,7 +130,7 @@ class AdminController extends Controller
         // END
 
         // RETURN
-            return redirect()->route('admin.dashboard.mahasiswa.detail',[$request->id])->with([
+            return redirect()->back()->with([
                 'status' => 'success',
                 'icon' => 'success',
                 'title' => 'Berhasil',
@@ -172,6 +172,7 @@ class AdminController extends Controller
     }
 
     public function showTransaksiNilai($prodi = "all", $status_mk = "all", $semester = "all"){
+        
         // SECURITY
             $validator = Validator::make(['prodi' => $prodi, 'status_mk' => $status_mk, 'semester' => $semester],[
                 'prodi' => 'required',
@@ -180,7 +181,6 @@ class AdminController extends Controller
             ]);
             
             if($validator->fails()){
-                dd($validator->errors());
                 return redirect()->back()->with([
                     'status' => 'fail',
                     'icon' => 'error',
@@ -198,13 +198,15 @@ class AdminController extends Controller
                     $matakuliahs->where('prodi',$prodi);
                 }
 
-                if($prodi != "status_mk"){
+                if($status_mk != "all"){
                     $matakuliahs->where('status_mk',$status_mk);
                 }
 
                 if($semester != "all"){
                     $matakuliahs->where('semester',$semester);
                 }
+
+                $matakuliahs->orderBy('semester','DESC');
 
                 $matakuliahs = $matakuliahs->get();
 
@@ -220,6 +222,51 @@ class AdminController extends Controller
         
         // RETURN
             return view('admin.dashboard-transaksi-nilai',compact(['matakuliahs','prodi','semester','status_mk']));
+        // END
+    }
+
+    public function showTransaksiNilaiDetail($id, $tahunAjaran = "all"){
+        // SECURITY
+            $validator = Validator::make(['id' => $id, 'tahunAjaran' => $tahunAjaran],[
+                'id' => 'required',
+                'tahunAjaran' => 'required',
+            ]);
+            
+            if($validator->fails()){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Fail !',
+                    'message' => 'Pastikan Input Sesuai !',
+                ]);
+            }
+        // END
+        
+        // MAIN LOGIC
+            try{
+                $transaksiKrs = TransaksiKrs::query()->with(['Mahasiswa','Matakuliah'])->where("matakuliah_id",$id);
+
+                if($tahunAjaran != "all"){
+                    $transaksiKrs->where("tahun_ajaran",$tahunAjaran);
+                }else{
+                    $tahunAjaran = date('Y');
+                    $transaksiKrs->where("tahun_ajaran",$tahunAjaran);
+                }
+
+                $transaksiKrs = $transaksiKrs->get();
+                
+            }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err) {
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Fail !',
+                    'message' => 'Internal Server Error',
+                ]);
+            }
+        // END
+        
+        // RETURN
+            return view('admin.dashboard-transaksi-nilai-detail',compact(['transaksiKrs','tahunAjaran','id']));
         // END
     }
 }

@@ -45,31 +45,7 @@
                                 <li>
                                     <a href="#" class="act-link">Beranda</a>
                                 </li>
-                                <li>
-                                    <a href="#">Matkul <i class="fa fa-caret-down"></i></a>
-                                    <!--second level -->
-                                    <ul>
-                                        <li><a href="listing.html">Semester 1</a></li>
-                                        <li><a href="listing2.html">Semester 2</a></li>
-                                        <li><a href="listing3.html">Semester 3</a></li>
-                                        <li><a href="listing4.html">Semester 4</a></li>
-                                        <li><a href="listing5.html">Semester 5</a></li>
-                                        <li><a href="listing6.html">Semester 6</a></li>
-                                        <li><a href="listing6.html">Semester 7</a></li>
-                                        <li>
-                                            <a href="#">Single <i class="fa fa-caret-down"></i></a>
-                                            <!--third  level  -->
-                                            <ul>
-                                                <li><a href="listing-single.html">Style 1</a></li>
-                                                <li><a href="listing-single2.html">Style 2</a></li>
-                                                <li><a href="listing-single3.html">Style 3</a></li>
-												<li><a href="listing-single4.html">Style 4</a></li>
-                                            </ul>
-                                            <!--third  level end-->
-                                        </li>
-                                    </ul>
-                                    <!--second level end-->
-                                </li>
+                                
                                 <li>
                                     <a href="#">Mahasiswa <i class="fa fa-caret-down"></i></a>
                                     <!--second level -->

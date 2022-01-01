@@ -189,9 +189,9 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex align-parent-center">
         <div class="image">
-          <img src="{{ asset('vendor/adminlte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ url('storage/foto_mahasiswa',[Auth::user()->foto_mahasiswa]) }}" style="width:40px;height:40px;" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ isset(Auth::user()->nama) ? Auth::user()->nama : "USER" }}</a>
@@ -213,6 +213,8 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-header">Dashboard</li>
+
           <li class="nav-item">
               <a href="{{ Route('mahasiswa.profile') }}" class="nav-link @yield('profile-active')">
                 <i class="fas fa-user"></i>
@@ -245,6 +247,17 @@
               </li>
             </ul>
           </li>
+        <li class="nav-header">Sistem</li>
+          <form action="{{ Route('user.logout') }}" method="POST" class="d-none" id="form-logout-admin">
+          @csrf
+          @method('POST')
+          </form>
+          <button form="form-logout-admin" class="text-danger btn text-left nav-link">
+                <i class="fas fa-power-off"></i>
+                <p>
+                  Log Out
+                </p>
+          </button>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -132,7 +132,6 @@ class AuthController extends Controller
             ]);
 
             if($validator->fails()){
-                dd("val");
                 return redirect()->back()->with([
                     'status' => 'fail',
                     'icon' => 'error',
@@ -165,7 +164,36 @@ class AuthController extends Controller
         // END
 
         // RETURN
-
+        return redirect()->route('admin.dashboard.mahasiswa')->with([
+            'status' => 'success',
+            'icon' => 'success',
+            'title' => 'Berhasil Login',
+            'message' => 'Selamat datang admin'
+        ]);
         // END
+    }
+
+    public function logoutAdmin(){
+
+        Auth::guard('admin')->logout();
+        
+        return redirect()->route('admin.login')->with([
+            'status' => 'success',
+            'icon' => 'success',
+            'title' => 'Berhasil Logout',
+            'message' => 'Berhasil Logout dari sistem Admin'
+        ]);
+    }
+
+    public function logoutMahasiswa(){
+
+        Auth::logout();
+        
+        return redirect()->route('welcome.page')->with([
+            'status' => 'success',
+            'icon' => 'success',
+            'title' => 'Berhasil Logout',
+            'message' => 'Berhasil Logout dari sistem'
+        ]);
     }
 }
