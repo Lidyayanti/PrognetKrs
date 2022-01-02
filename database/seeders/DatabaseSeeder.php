@@ -306,6 +306,18 @@ class DatabaseSeeder extends Seeder
                 'program_studi' => DatabaseSeeder::$prodi[0],
                 'angkatan' => 2019,
                 'foto_mahasiswa' => 'default.jpg',
+            ],
+            [
+                'nim' => 1905551032,
+                'nama' => 'Naufal Fabian Hakim',
+                'semester' => 1,
+                'alamat' => 'Jln.Raya Pemogan',
+                'telepon' => '081239271294',
+                'email' => 'fabian@gmail.com',
+                'password' => Hash::make('fabian'),
+                'program_studi' => DatabaseSeeder::$prodi[0],
+                'angkatan' => 2019,
+                'foto_mahasiswa' => 'default.jpg',
             ]
         ]);
 
