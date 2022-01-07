@@ -226,7 +226,6 @@ class MahasiswaController extends Controller
     // MAIN LOGIC
         try{
             DB::beginTransaction();
-            // dd($request->all());
 
             $mahasiswa = Mahasiswa::findOrFail($request->id);
 
@@ -236,7 +235,6 @@ class MahasiswaController extends Controller
                 $mahasiswa->update(['foto_mahasiswa' => $foto_mahasiswa]);
             }
         
-
             $mahasiswa->update([
                 'nim' => $request->nim,
                 'nama' => $request->nama,
@@ -251,7 +249,6 @@ class MahasiswaController extends Controller
             DB::commit();
 
         }catch(ModelNotFoundException | QueryException | PDOException | \Throwable | \Exception $err){
-            dd($err);
             DB::rollback();
             return redirect()->back()->with([
                 'status' => 'fail',

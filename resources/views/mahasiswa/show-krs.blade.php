@@ -2,10 +2,10 @@
 
 @section('krs-lihat-active','active')
 @section('krs-active','active')
-@section('title','KRS Input')
+@section('title','Lihat KRS')
 
 @section('breadcrumb')
-<li class="breadcrumb-item">Input KRS</li>
+<li class="breadcrumb-item">Lihat KRS</li>
 @endsection
 
 @section('content')
