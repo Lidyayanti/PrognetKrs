@@ -56,7 +56,7 @@ $(document).ready(function() {
 
 function goToURL(){
     let semester = document.getElementById('semester').value;
-    window.open("{{ url('/mahasiswa/krs/show') }}"+"/"+semester);
+    window.location.href = "{{ url('/mahasiswa/krs/show') }}"+"/"+semester
 }
 </script>
 @endpush
