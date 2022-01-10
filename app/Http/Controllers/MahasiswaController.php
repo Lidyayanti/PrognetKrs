@@ -241,7 +241,7 @@ class MahasiswaController extends Controller
                 'alamat' => $request->alamat,
                 'telepon' => $request->telepon,
                 'email' => $request->email,
-                'password' => hash::make($request->password),
+                'password' => Hash::make($request->password),
                 'angkatan' => $request->angkatan,
                 'program_studi' => $request->program_studi
                 ]);
