@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use PDOException;
@@ -127,8 +128,7 @@ class MasterDataMahasiswaController extends Controller
                     'telepon' => $request->telepon,
                     'email' => $request->email,
                     'foto_mahasiswa' => $filename,
-                    'password' => $request->password,
-                    'password_confirmation' => $request->password_confirmation,
+                    'password' => Hash::make($request->password),
                     'program_studi' => $request->program_studi,
                     'angkatan' => $request->angkatan,
                 ]);
@@ -245,7 +245,7 @@ class MasterDataMahasiswaController extends Controller
 
                 if(isset($request->password)){
                     $mahasiswa->update([
-                        'password' => $request->password
+                        'password' => Hash::make($request->password),
                     ]);
                 }
 
