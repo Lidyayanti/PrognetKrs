@@ -15,6 +15,18 @@
         <div class="col-12 card p-2">
             <h5 class="bg-primary mx-n2 mt-n2 p-2">MATAKULIAH DETAIL</h5>
             <div class="row">
+                <div class="col-12 mb-4">
+                    <table class="table-sm w-50 table-primary">
+                        <tr>
+                            <th>Nama Matakuliah</th>
+                            <td>: {{ isset($matakuliah) ? $matakuliah->nama_matakuliah : "" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Tahun Ajaran</th>
+                            <td>: {{ isset($tahunAjaran) ? $tahunAjaran : "" }}</td>
+                        </tr>
+                    </table>
+                </div>
                 <div class="col-12 col-lg-4">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">TAHUN AJARAN</label>

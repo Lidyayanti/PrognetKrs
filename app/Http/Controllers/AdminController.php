@@ -245,7 +245,8 @@ class AdminController extends Controller
         // MAIN LOGIC
             try{
                 $transaksiKrs = TransaksiKrs::query()->with(['Mahasiswa','Matakuliah'])->where("matakuliah_id",$id);
-
+                $matakuliah = Matakuliah::findOrFail($id);
+                
                 if($tahunAjaran != "all"){
                     $transaksiKrs->where("tahun_ajaran",$tahunAjaran);
                 }else{
@@ -266,7 +267,7 @@ class AdminController extends Controller
         // END
         
         // RETURN
-            return view('admin.dashboard-transaksi-nilai-detail',compact(['transaksiKrs','tahunAjaran','id']));
+            return view('admin.dashboard-transaksi-nilai-detail',compact(['transaksiKrs','tahunAjaran','id','matakuliah']));
         // END
     }
 }
