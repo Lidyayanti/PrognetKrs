@@ -53,7 +53,7 @@ Route::prefix('admin')->group(function(){
     Route::get('login',[AuthController::class,'loginAdmin'])->name('admin.login');
     Route::post('login',[AuthController::class,'postLoginAdmin'])->name('admin.post.login');
 
-    Route::prefix('dashboard')->middleware(AdminMiddleware::class)->group(function(){
+    Route::prefix('dashboard')->group(function(){
         Route::get('mahasiswa/{semester?}',[AdminController::class,'showMahasiswas'])->name('admin.dashboard.mahasiswa');
         Route::get('mahasiswa/detail/{semester?}/{id?}',[AdminController::class,'showMahasiswaDetail'])->name('admin.dashboard.mahasiswa.detail');
         Route::post('mahasiswa/perbarui',[AdminController::class,'perbaruiMahasiswa'])->name('admin.dashboard.mahasiswa.perbarui');

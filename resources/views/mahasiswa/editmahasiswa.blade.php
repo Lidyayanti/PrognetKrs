@@ -13,7 +13,7 @@
         </div> -->
         <div class="form-group">
             <label for="exampleInputEmail1">NIM</label>
-            <input type="number" name="nim" class="form-control" placeholder="Input NIM" value="{{ $mahasiswa->nim }}" required>
+            <input type="number" name="nim" class="form-control" placeholder="Input NIM" value="{{ $mahasiswa->nim }}" required disabled>
             @error('nim')
                 <p class="text-danger"><small>{{ $errors->first('nim') }}</small></p>
             @enderror

@@ -237,6 +237,7 @@ class MatakuliahController extends Controller
 
                 DB::commit();
             }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err) {
+                dd($err);
                 DB::rollBack();
                 return redirect()->back()->with([
                     'status' => 'error',
